@@ -16,24 +16,41 @@ MonoBehaviour:
   globalPropRanges_obsolete: []
   Length:
     Min: 5
-    Max: 10
+    Max: 15
   BranchMode: 0
   BranchCount:
     Min: 1
     Max: 5
   GlobalProps: []
   KeyManager: {fileID: 11400000, guid: 4f9c0fab9f34c004c9fbe5769bd78ea9, type: 2}
-  DoorwayConnectionChance: 0
+  DoorwayConnectionChance: 0.2
   RestrictConnectionToSameSection: 0
   TileInjectionRules: []
   TileTagConnectionMode: 0
-  TileConnectionTags: []
-  BranchTagPruneMode: 1
-  BranchPruneTags: []
+  TileConnectionTags:
+  - TagA:
+      id: 0
+    TagB:
+      id: 1
+  - TagA:
+      id: 1
+    TagB:
+      id: 0
+  - TagA:
+      id: 2
+    TagB:
+      id: 0
+  - TagA:
+      id: 0
+    TagB:
+      id: 3
+  BranchTagPruneMode: 0
+  BranchPruneTags:
+  - id: 0
   Nodes:
   - Graph: {fileID: 11400000}
     TileSets:
-    - {fileID: 11400000, guid: 67321d6989672fe449dd26d8c3af548f, type: 2}
+    - {fileID: 11400000, guid: e0e42407988d712479c479ad79ca2715, type: 2}
     NodeType: 1
     Position: 0
     Label: Start
@@ -42,19 +59,10 @@ MonoBehaviour:
     LockPlacement: 0
   - Graph: {fileID: 11400000}
     TileSets:
-    - {fileID: 11400000, guid: 67321d6989672fe449dd26d8c3af548f, type: 2}
+    - {fileID: 11400000, guid: bc72f56403830bd40a121704e61154cf, type: 2}
     NodeType: 2
     Position: 1
     Label: Goal
-    Keys: []
-    Locks: []
-    LockPlacement: 0
-  - Graph: {fileID: 11400000}
-    TileSets:
-    - {fileID: 11400000, guid: 67321d6989672fe449dd26d8c3af548f, type: 2}
-    NodeType: 0
-    Position: 0.44871795
-    Label: New Node
     Keys: []
     Locks: []
     LockPlacement: 0

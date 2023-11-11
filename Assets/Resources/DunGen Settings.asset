@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSocket: {fileID: 0}
   tagManager:
-    keys: 
-    values: []
+    keys: 00000000010000000200000003000000
+    values:
+    - Path
+    - Room
+    - Start
+    - End

@@ -8,6 +8,8 @@ using System.Collections;
 using UnityEngine.Serialization;
 
 using Debug = UnityEngine.Debug;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 namespace DunGen
 {
@@ -221,6 +223,12 @@ namespace DunGen
 
 
 			yield return Wait(InnerGenerate(false));
+			////
+
+			//NavMeshSurface surface = Root.AddComponent<NavMeshSurface>();
+			//surface.BuildNavMesh();
+
+			//
 
 			IsGenerating = false;
 		}
