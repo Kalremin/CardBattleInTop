@@ -55,9 +55,9 @@ MonoBehaviour:
   AvoidRotatingDoorPrefab: 0
   AvoidRotatingBlockerPrefab: 0
   ConnectorSceneObjects:
-  - {fileID: 2871634695474680481}
-  BlockerSceneObjects:
   - {fileID: 3696857135093057888}
+  BlockerSceneObjects:
+  - {fileID: 2871634695474680481}
   Tags:
     Tags: []
   socketGroup_obsolete: -1
@@ -233,9 +233,9 @@ MonoBehaviour:
   AvoidRotatingDoorPrefab: 0
   AvoidRotatingBlockerPrefab: 0
   ConnectorSceneObjects:
-  - {fileID: 7408244508216879686}
-  BlockerSceneObjects:
   - {fileID: 525112623745664516}
+  BlockerSceneObjects:
+  - {fileID: 7408244508216879686}
   Tags:
     Tags: []
   socketGroup_obsolete: -1
@@ -338,9 +338,9 @@ MonoBehaviour:
   AvoidRotatingDoorPrefab: 0
   AvoidRotatingBlockerPrefab: 0
   ConnectorSceneObjects:
-  - {fileID: 6312119351572364190}
-  BlockerSceneObjects:
   - {fileID: 7551803190159312647}
+  BlockerSceneObjects:
+  - {fileID: 6312119351572364190}
   Tags:
     Tags: []
   socketGroup_obsolete: -1
@@ -444,9 +444,9 @@ MonoBehaviour:
   AvoidRotatingDoorPrefab: 0
   AvoidRotatingBlockerPrefab: 0
   ConnectorSceneObjects:
-  - {fileID: 753736202293356892}
-  BlockerSceneObjects:
   - {fileID: 5141198645159962623}
+  BlockerSceneObjects:
+  - {fileID: 753736202293356892}
   Tags:
     Tags: []
   socketGroup_obsolete: -1
