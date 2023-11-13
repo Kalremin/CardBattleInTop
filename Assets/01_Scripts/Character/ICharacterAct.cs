@@ -4,10 +4,10 @@ using UnityEngine;
 
 public interface ICharacterAct
 {
-    public abstract void Move();
-    public abstract void Attack();
-    public abstract void Hitted();
-    public abstract void Idle();
+    void Move();
+    void Attack();
+    void Hitted();
+    void Idle();
 
 
 }

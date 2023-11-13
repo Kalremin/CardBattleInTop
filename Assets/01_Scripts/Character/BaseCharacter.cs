@@ -4,19 +4,32 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour, ICharacterAct
 {
-    protected CharacterController characterController;
+    int healthPoint;
+    int mamaPoint;
+    float healthRegen;
+    float manaRegen;
+    float moveSpeed;
+
+
+
     protected Animator animator;
 
     #region Cycle
 
+
+    protected virtual void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
@@ -25,22 +38,22 @@ public class BaseCharacter : MonoBehaviour, ICharacterAct
 
     #region Interface
 
-    public void Attack()
+    public virtual void Attack()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Hitted()
+    public virtual void Hitted()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Idle()
+    public virtual void Idle()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Move()
+    public virtual void Move()
     {
         throw new System.NotImplementedException();
     }
