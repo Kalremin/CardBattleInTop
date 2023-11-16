@@ -39,6 +39,11 @@ public class InputManager : MonoBehaviour
         print("Swap");
     }
 
+    public void OnRot(InputValue val)
+    {
+        print(val.Get<Vector3>());
+    }
+
     public void OnLockOn(InputValue input)
     {
         isHoldLockOn = Convert.ToBoolean(input.Get<float>());
@@ -67,6 +72,11 @@ public class InputManager : MonoBehaviour
     {
         //tempTime += Time.deltaTime;
         //if (tempTime > setTime) { print(dir);tempTime = 0; }
+
+    }
+
+    public void DragTrigger()
+    {
 
     }
 }

@@ -26,7 +26,11 @@ public class PlayerControl : MonoBehaviour
     {
         //characterController.Move(new Vector3(InputManager.Instance.dir.x, 0, InputManager.Instance.dir.y) * Time.deltaTime * moveSpeed);
         //transform.Translate(new Vector3(InputManager.Instance.dir.x, 0, InputManager.Instance.dir.y) * Time.deltaTime * moveSpeed);
-        rigidbody.MovePosition(transform.position + new Vector3(InputManager.Instance.dir.x, 0, InputManager.Instance.dir.y) * Time.deltaTime * moveSpeed);
         //transform.position += new Vector3(InputManager.Instance.dir.x,0, InputManager.Instance.dir.y)* Time.deltaTime;
+        Vector3 dir = InputManager.Instance.dir;
+        rigidbody.MovePosition(transform.position +
+            (transform.forward*dir.y+transform.right*dir.x) * Time.deltaTime * moveSpeed);
+
+        
     }
 }

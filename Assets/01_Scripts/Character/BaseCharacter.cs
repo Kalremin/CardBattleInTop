@@ -1,20 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseCharacter : MonoBehaviour, ICharacterAct
+public class BaseCharacter : MonoBehaviour
 {
-    int healthPoint;
-    int mamaPoint;
-    float healthRegen;
-    float manaRegen;
-    float moveSpeed;
 
+    [SerializeField] bool isAlive = true;
+    [SerializeField] int healthPoint=5;
+    [SerializeField] int mamaPoint=3;
+    [SerializeField] float healthRegen=0;
+    [SerializeField] float manaRegen=0;
+    [SerializeField] float moveSpeed=1;
 
-
+    protected delegate void UpdateMethod();
+    protected UpdateMethod updateMethod;
     protected Animator animator;
 
-    #region Cycle
+    public int HealthPoint => healthPoint;
+    public int ManaPoint => mamaPoint;
 
 
     protected virtual void Awake()
@@ -22,41 +26,19 @@ public class BaseCharacter : MonoBehaviour, ICharacterAct
         animator = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     protected virtual void Update()
     {
-        
+        if (isAlive)
+        {
+            
+        }
+        else
+        {
+
+        }
     }
 
-    #endregion
+    
 
-    #region Interface
-
-    public virtual void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void Hitted()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void Idle()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void Move()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    #endregion
+    
 }
