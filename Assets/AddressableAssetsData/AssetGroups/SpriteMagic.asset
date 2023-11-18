@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Magic
+  m_Name: SpriteMagic
   m_EditorClassIdentifier: 
-  m_GroupName: Magic
+  m_GroupName: SpriteMagic
   m_Data:
     m_SerializedData: []
   m_GUID: 855124fa24f55a340b5571e9c3635348
   m_SerializeEntries:
   - m_GUID: fa657ae5e0e9cdc47a33994d4080836f
-    m_Address: FireMage1
+    m_Address: spr_magic_0
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ee2acac0a9ab8441bd5f9757e3ea6e8
-    m_Address: FireMage2
+    m_Address: spr_magic_1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 885122bb294da974f815b57170b9139c
-    m_Address: FireMage3
+    m_Address: spr_magic_2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19e4e3b2a253de047b24529835e274e5
-    m_Address: FireMage4
+    m_Address: spr_magic_3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

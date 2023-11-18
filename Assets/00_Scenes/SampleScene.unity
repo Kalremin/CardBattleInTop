@@ -6418,6 +6418,7 @@ MonoBehaviour:
   healthRegen: 0
   manaRegen: 0
   moveSpeed: 1
+  projectTransform: {fileID: 0}
 --- !u!114 &1298725274
 MonoBehaviour:
   m_ObjectHideFlags: 0

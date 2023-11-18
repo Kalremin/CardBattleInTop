@@ -6,21 +6,16 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-public enum MagicKind
-{
-    FireMage,
-    IceMage,
-    EarthMage
-}
 
 public class AssetAddressLoad : MonoBehaviour
 {
+
     static AssetAddressLoad instance;
     public static AssetAddressLoad Instance => instance;
 
     AsyncOperationHandle<Sprite> spriteHandle;
 
-    AsyncOperationHandle<GameObject> gameObjectHandle;
+    AsyncOperationHandle<GameObject> prefabHandle;
 
     private void Start()
     {
@@ -36,26 +31,30 @@ public class AssetAddressLoad : MonoBehaviour
     }
 
 
-    public async void LoadGameObject(string name,int objectIdx, Transform spawnTransform)
+    public async void LoadPrefab(int objectIdx, Transform spawnTransform)
     {
-        gameObjectHandle = Addressables.LoadAssetAsync<GameObject>(name + objectIdx);
-        await gameObjectHandle.Task;
+        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab+StaticVar.prefabGameObject + objectIdx);
+        await prefabHandle.Task;
 
-        if (gameObjectHandle.Status == AsyncOperationStatus.Succeeded)
+        if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            Instantiate(gameObjectHandle.Result, spawnTransform);
+            Instantiate(prefabHandle.Result, spawnTransform);
+
+            Addressables.Release(prefabHandle);
         }
     }
 
 
-    public async void LoadSprite(MagicKind kind, int magicIdx, Image image)
+    public async void LoadSprite(int magicIdx, Image image)
     {
-        spriteHandle = Addressables.LoadAssetAsync<Sprite>(kind.ToString() + magicIdx);
+        spriteHandle = Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + magicIdx);
         await spriteHandle.Task;
 
         if (spriteHandle.Status == AsyncOperationStatus.Succeeded)
         {
             image.sprite = spriteHandle.Result;
+
+            Addressables.Release(spriteHandle);
         }
         
     }
@@ -63,6 +62,6 @@ public class AssetAddressLoad : MonoBehaviour
     public void ResRelease()
     {
         Addressables.Release(spriteHandle);
-        Addressables.Release(gameObjectHandle);
+        Addressables.Release(prefabHandle);
     }
 }

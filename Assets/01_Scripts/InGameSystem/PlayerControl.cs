@@ -54,6 +54,7 @@ public class PlayerControl : MonoBehaviour
     public void OnAttackL()
     {
         print("AttackL");
+        character.AttackL();
     }
 
     public void OnAttackR()

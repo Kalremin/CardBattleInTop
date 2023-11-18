@@ -14,6 +14,8 @@ public class PlayerCharacter : BaseCharacter, ICharacterAct
     Queue<int> cardIdQueue = new Queue<int>();
 
     CardListUI cardListUI;
+    [SerializeField]
+    Transform projectTransform;
 
     public Queue<int> CardIdQueue => cardIdQueue;
 
@@ -60,7 +62,8 @@ public class PlayerCharacter : BaseCharacter, ICharacterAct
 
     public void UseCardL()
     {
-        ActivateMagic(cardLIdx);
+        AssetAddressLoad.Instance.LoadPrefab(cardLIdx, projectTransform);
+        
         if (cardIdQueue.Count > 0)
             cardLIdx = cardIdQueue.Dequeue();
         else
@@ -73,7 +76,8 @@ public class PlayerCharacter : BaseCharacter, ICharacterAct
 
     public void UseCardR()
     {
-        ActivateMagic(cardRIdx);
+        AssetAddressLoad.Instance.LoadPrefab(cardRIdx, projectTransform);
+        
         if (cardIdQueue.Count > 0)
             cardRIdx = cardIdQueue.Dequeue();
         else
