@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     bool isHoldLockOn=false;
 
     public Vector2 dir;
-    #region
+    #region Input
     public void OnMove(InputValue input)
     {
         dir = input.Get<Vector2>();
@@ -61,22 +61,9 @@ public class InputManager : MonoBehaviour
         else
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
     }
 
-    float tempTime, setTime = 1;
-
-    // Update is called once per frame
-    void Update()
-    {
-        //tempTime += Time.deltaTime;
-        //if (tempTime > setTime) { print(dir);tempTime = 0; }
-
-    }
-
-    public void DragTrigger()
-    {
-
-    }
 }

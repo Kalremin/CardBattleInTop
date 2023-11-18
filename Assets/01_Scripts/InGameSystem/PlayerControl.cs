@@ -1,36 +1,81 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
-    CharacterController characterController;
-    Rigidbody rigidbody;
-    [SerializeField]
-    float moveSpeed = 1f;
 
-    private void Awake()
+
+    CharacterController characterController;
+    PlayerCharacter character;
+    Rigidbody playerRigid;
+
+    bool isHoldAttackL = false;
+    bool isHoldAttackR = false;
+    bool isHoldLockOn = false;
+
+    Vector2 dir;
+
+    [SerializeField] Transform projectileTransform;
+
+    void Awake()
     {
-        //characterController = GetComponent<CharacterController>();
-        rigidbody = GetComponent<Rigidbody>();
+        //base.Awake();
+        
+        playerRigid = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        character = GetComponent<PlayerCharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //characterController.Move(new Vector3(InputManager.Instance.dir.x, 0, InputManager.Instance.dir.y) * Time.deltaTime * moveSpeed);
-        //transform.Translate(new Vector3(InputManager.Instance.dir.x, 0, InputManager.Instance.dir.y) * Time.deltaTime * moveSpeed);
-        //transform.position += new Vector3(InputManager.Instance.dir.x,0, InputManager.Instance.dir.y)* Time.deltaTime;
-        Vector3 dir = InputManager.Instance.dir;
-        rigidbody.MovePosition(transform.position +
-            (transform.forward*dir.y+transform.right*dir.x) * Time.deltaTime * moveSpeed);
 
         
+        playerRigid.MovePosition(transform.position +
+            (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * character.MoveSpeed);
+
+
     }
+
+    #region PlayerInput
+    public void OnMove(InputValue input)
+    {
+        dir = input.Get<Vector2>();
+    }
+
+    public void OnAttackL()
+    {
+        print("AttackL");
+    }
+
+    public void OnAttackR()
+    {
+        print("AttackR");
+    }
+
+    public void OnInteract()
+    {
+        print("Interact");
+    }
+
+    public void OnSwap()
+    {
+        print("Swap");
+    }
+
+    public void OnLockOn(InputValue input)
+    {
+        isHoldLockOn = Convert.ToBoolean(input.Get<float>());
+    }
+
+    #endregion
+
 }
