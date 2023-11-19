@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCharacter : BaseCharacter, ICharacterAct
+public class EnemyCharacter : BaseCharacter
 {
     // Start is called before the first frame update
     void Start()
@@ -17,27 +17,27 @@ public class EnemyCharacter : BaseCharacter, ICharacterAct
     }
 
     #region ICharacterAct
-    public void AttackL()
+    public override void AttackL()
     {
         throw new System.NotImplementedException();
     }
 
-    public void AttackR()
+    public override void AttackR()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Hitted(int damage)
+    public override void Hitted(float damage)
     {
         throw new System.NotImplementedException();
     }
 
-    public void Idle()
+    public override void Idle()
     {
         throw new System.NotImplementedException();
     }
 
-    public void Move()
+    public override void Move()
     {
         throw new System.NotImplementedException();
     }

@@ -7,9 +7,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
-
-
-    CharacterController characterController;
     PlayerCharacter character;
     Rigidbody playerRigid;
 
@@ -60,6 +57,7 @@ public class PlayerControl : MonoBehaviour
     public void OnAttackR()
     {
         print("AttackR");
+        character.AttackR();
     }
 
     public void OnInteract()

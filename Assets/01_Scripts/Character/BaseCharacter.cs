@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class BaseCharacter : MonoBehaviour, ICharacterAct
+public abstract class BaseCharacter : MonoBehaviour
 {
 
     [SerializeField] protected bool isAlive = true;
@@ -34,28 +34,13 @@ public class BaseCharacter : MonoBehaviour, ICharacterAct
         animator = GetComponent<Animator>();
     }
 
-    public virtual void Move()
-    {
-        throw new NotImplementedException();
-    }
+    public abstract void Move();
 
-    public virtual void AttackL()
-    {
-        throw new NotImplementedException();
-    }
+    public abstract void AttackL();
 
-    public virtual void AttackR()
-    {
-        throw new NotImplementedException();
-    }
+    public abstract void AttackR();
 
-    public virtual void Hitted(float damage)
-    {
-        throw new NotImplementedException();
-    }
+    public abstract void Hitted(float damage);
 
-    public virtual void Idle()
-    {
-        throw new NotImplementedException();
-    }
+    public abstract void Idle();
 }

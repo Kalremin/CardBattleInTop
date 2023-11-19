@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class CardMagic : MonoBehaviour
 {
-
-    protected enum MagicType
-    {
-        Projectile,
-        AreaOfEffect,
-        Self
-    }
-
-    [SerializeField] protected MagicType magicType;
     [SerializeField] protected float effectNum = 1;
     [SerializeField] protected float duration = 1f;
 
