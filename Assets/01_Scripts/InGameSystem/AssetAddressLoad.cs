@@ -17,6 +17,8 @@ public class AssetAddressLoad : MonoBehaviour
 
     AsyncOperationHandle<GameObject> prefabHandle;
 
+    AsyncOperationHandle<GameObject> prefabUIHandle;
+
 
     private void Start()
     {
@@ -31,6 +33,11 @@ public class AssetAddressLoad : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        
+    }
+
 
     public async void LoadPrefab(int objectIdx, Transform spawnTransform)
     {
@@ -42,20 +49,20 @@ public class AssetAddressLoad : MonoBehaviour
         {
             Instantiate(prefabHandle.Result, spawnTransform);
 
-            //Addressables.Release(prefabHandle);
+            Addressables.Release(prefabHandle);
         }
     }
 
     public async void LoadUI(int objectIdx, Transform spawnTransform)
     {
-        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + objectIdx);
-        await prefabHandle.Task;
+        prefabUIHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + objectIdx);
+        await prefabUIHandle.Task;
 
-        if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
+        if (prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            Instantiate(prefabHandle.Result, spawnTransform);
+            Instantiate(prefabUIHandle.Result, spawnTransform);
 
-            //Addressables.Release(prefabHandle);
+            Addressables.Release(prefabUIHandle);
         }
     }
 
@@ -69,27 +76,27 @@ public class AssetAddressLoad : MonoBehaviour
         {
             image.sprite = spriteHandle.Result;
 
-            //Addressables.Release(spriteHandle);
+            Addressables.Release(spriteHandle);
         }
         
     }
 
     public async void LoadCardUI(int magicSpriteIdx, Transform spawnTransform)
     {
-        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx);
+        prefabUIHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx);
         spriteHandle = Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + magicSpriteIdx);
 
-        await prefabHandle.Task;
+        await prefabUIHandle.Task;
         await spriteHandle.Task;
 
         if(spriteHandle.Status == AsyncOperationStatus.Succeeded && 
-            prefabHandle.Status == AsyncOperationStatus.Succeeded)
+            prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            prefabHandle.Result.GetComponent<Image>().sprite = spriteHandle.Result;
-            Instantiate(prefabHandle.Result, spawnTransform);
+            prefabUIHandle.Result.GetComponent<Image>().sprite = spriteHandle.Result;
+            Instantiate(prefabUIHandle.Result, spawnTransform);
 
-            //Addressables.Release(spriteHandle);
-            //Addressables.Release(prefabHandle);
+            Addressables.Release(spriteHandle);
+            Addressables.Release(prefabUIHandle);
         }
 
 
@@ -97,12 +104,12 @@ public class AssetAddressLoad : MonoBehaviour
 
     public async void LoadCardUIList(List<int> cardUIList, Transform spawnTransform)
     {
-        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx);
-        await prefabHandle.Task;
+        prefabUIHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx);
+        await prefabUIHandle.Task;
 
-        if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
+        if (prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            Image tempImage = prefabHandle.Result.GetComponent<Image>();
+            Image tempImage = prefabUIHandle.Result.GetComponent<Image>();
 
             for(int i = 0; i < cardUIList.Count; i++)
             {
@@ -114,14 +121,14 @@ public class AssetAddressLoad : MonoBehaviour
                     tempImage.sprite = spriteHandle.Result;
                     Instantiate(tempImage.gameObject, spawnTransform);
 
-                    //Addressables.Release(spriteHandle);
+                    Addressables.Release(spriteHandle);
                 }
             }
 
 
 
+            Addressables.Release(prefabUIHandle);
             
-            //Addressables.Release(prefabHandle);
         }
 
 
@@ -132,6 +139,29 @@ public class AssetAddressLoad : MonoBehaviour
     {
         Addressables.Release(spriteHandle);
         Addressables.Release(prefabHandle);
+
+        
+    }
+
+    [ContextMenu("TestRelease")]
+    public void TestRelease()
+    {
+        Addressables.Release(
+            Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx));
+
+        Addressables.Release(
+            Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + 0));
+        Addressables.Release(
+            Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + 1));
+        Addressables.Release(
+            Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + 2));
+
+        Addressables.Release(
+            Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabGameObject + 0));
+        Addressables.Release(
+            Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabGameObject + 1));
+        Addressables.Release(
+            Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabGameObject + 2));
     }
 
 

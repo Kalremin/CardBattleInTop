@@ -20,14 +20,13 @@ public class CardPlayer : MonoBehaviour
 
     DeckState nowState;
 
-    bool isResetDeck = false;
     int tempIdx;
     int cardLIdx=-1;
     int cardRIdx=-1;
 
     List<int> playerCardsDeck = new List<int>(); // 가지고 있는 카드 리스트
     List<int> cardIdxList = new List<int>();    // 사용할 카드리스트
-    Queue<int> tempIdxQueue = new Queue<int>(); // 임시 
+    Queue<int> tempIdxQueue = new Queue<int>(); // 임시 저장
 
     CardListUI cardListUI;
 
@@ -109,6 +108,9 @@ public class CardPlayer : MonoBehaviour
         AddCard(0);
         AddCard(1);
         AddCard(2);
+        AddCard(0);
+        AddCard(2);
+        AddCard(0);
     }
 
     [ContextMenu("ResetDeck")]
