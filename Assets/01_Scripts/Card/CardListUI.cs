@@ -48,12 +48,15 @@ public class CardListUI : MonoBehaviour
 
     public void RemoveFirstCardUI()
     {
-        transform.GetChild(0).GetComponent<Image>().sprite = null;
-        Destroy(transform.GetChild(0).gameObject);// 오브젝트 풀링으로 전환 필요
+        transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite = null;
+        Destroy(transform.GetChild(transform.childCount - 1).gameObject);// 오브젝트 풀링으로 전환 필요
     }
 
     public void RemoveAllCardUI()
     {
+        if (transform.childCount <= 0)
+            return;
+
         foreach(Image temp in transform.GetComponentsInChildren<Image>())
         {
             temp.sprite = null;

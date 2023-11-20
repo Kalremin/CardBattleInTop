@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: ff96ba77c83e157439fbc8c3e932dd5a
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: d027a25f67716824f829db5395de4cd7
+    m_Address: prf_gameobject_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 457cdd625c1dfd74e8a51f35798e22eb, type: 2}
   m_SchemaSet:

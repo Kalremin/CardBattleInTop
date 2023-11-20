@@ -30,6 +30,8 @@ public class CardPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         cardListUI = FindAnyObjectByType<CardListUI>();
 
     }
@@ -49,6 +51,8 @@ public class CardPlayer : MonoBehaviour
     [ContextMenu("ResetDeck")]
     public void ResetCardDeck()
     {
+        cardListUI.RemoveAllCardUI();
+
         cardIdQueue.Clear();
         tempIntList.Clear();
         while (cardIdQueue.Count != playerCardIdInDeck.Count)
@@ -95,8 +99,33 @@ public class CardPlayer : MonoBehaviour
 
     public void UseCard(bool isLeft)
     {
-        int tempInt = isLeft ? cardLIdx : cardRIdx;
-        AssetAddressLoad.Instance.LoadPrefab(tempInt, magicPointTransform);
+        AssetAddressLoad.Instance.LoadPrefab(isLeft ? cardLIdx : cardRIdx, magicPointTransform);
+
+        if(cardIdQueue.Count>0)
+        {
+            if (isLeft)
+            {
+                cardLIdx = cardIdQueue.Dequeue();
+            }
+            else
+            {
+                cardRIdx = cardIdQueue.Dequeue();
+            }
+
+            cardListUI.RemoveFirstCardUI();
+        }
+        else
+        {
+            if (isLeft)
+            {
+                cardLIdx = -1;
+            }
+            else
+            {
+                cardRIdx = -1;
+            }
+        }
+
 
     }
 

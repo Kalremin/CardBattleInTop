@@ -27,27 +27,28 @@ public class PlayerCharacter : BaseCharacter
 
     public void UseCardL()
     {
+        CardPlayer.Instance.UseCard(true);
     }
 
 
     public void UseCardR()
     {
+        CardPlayer.Instance.UseCard(false);
     }
-    private void ActivateMagic(int cardLIdx)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 
     #region ICharacterAct
     public override void AttackL()
     {
         print("P_Att_L");
+        CardPlayer.Instance.UseCard(true);
         //AssetAddressLoad.Instance.LoadPrefab(11, projectTransform);
     }
 
     public override void AttackR()
     {
         print("P_Att_R");
+        CardPlayer.Instance.UseCard(false);
         //AssetAddressLoad.Instance.LoadPrefab(11, projectTransform);
     }
 
