@@ -9,7 +9,10 @@ public static class StaticVar
 
     public static readonly string spriteMagic = "magic_";
     public static readonly string prefabGameObject = "gameobject_";
+    public static readonly string prefabUI = "ui_";
     public static readonly string prefabEffect = "effect_";
-    
+
+    public static readonly int UI_CardIdx = 0;
+
 
 }

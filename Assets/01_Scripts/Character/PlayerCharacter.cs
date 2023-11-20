@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class PlayerCharacter : BaseCharacter
 {
-    int tempIdx;
-    int cardLIdx;
-    int cardRIdx;
     float deckResetDuration = 2f;
 
-    List<int> playerCardIdInDeck = new List<int>();
-    List<int> temp = new List<int>();
-    Queue<int> cardIdQueue = new Queue<int>();
+    [SerializeField]
+    CardPlayer cardPlayer;
 
-    CardListUI cardListUI;
     [SerializeField]
     Transform projectTransform;
 
-    public Queue<int> CardIdQueue => cardIdQueue;
 
     private void Start()
     {
-        cardListUI = FindAnyObjectByType<CardListUI>();
+
     }
 
     private void Update()
@@ -29,62 +23,15 @@ public class PlayerCharacter : BaseCharacter
         
     }
 
-    public void ResetCardDeck()
-    {
-        cardIdQueue.Clear();
-        temp.Clear();
-        
-        while(cardIdQueue.Count != playerCardIdInDeck.Count)
-        {
-            do
-            {
-                tempIdx = Random.Range(0, playerCardIdInDeck.Count);
-            }
-            while ( cardIdQueue.Contains(tempIdx));
 
-            cardIdQueue.Enqueue(tempIdx);
-        }
-
-        cardLIdx = cardIdQueue.Dequeue();
-        cardRIdx = cardIdQueue.Dequeue();
-
-    }
-
-    public void AddCard(int cardId)
-    {
-        playerCardIdInDeck.Add(cardId);
-    }
-    
-    public void RemoveCard(int cardDeckIdx)
-    {
-        playerCardIdInDeck.RemoveAt(cardDeckIdx);
-    }
 
     public void UseCardL()
     {
-        AssetAddressLoad.Instance.LoadPrefab(cardLIdx, projectTransform);
-        
-        if (cardIdQueue.Count > 0)
-            cardLIdx = cardIdQueue.Dequeue();
-        else
-            cardLIdx = -1;
-
-        if (cardIdQueue.Count == 0)
-            ResetCardDeck();
     }
 
 
     public void UseCardR()
     {
-        AssetAddressLoad.Instance.LoadPrefab(cardRIdx, projectTransform);
-        
-        if (cardIdQueue.Count > 0)
-            cardRIdx = cardIdQueue.Dequeue();
-        else
-            cardRIdx = -1;
-
-        if (cardIdQueue.Count == 0)
-            ResetCardDeck();
     }
     private void ActivateMagic(int cardLIdx)
     {
@@ -94,27 +41,29 @@ public class PlayerCharacter : BaseCharacter
     #region ICharacterAct
     public override void AttackL()
     {
-        throw new System.NotImplementedException();
+        print("P_Att_L");
+        //AssetAddressLoad.Instance.LoadPrefab(11, projectTransform);
     }
 
     public override void AttackR()
     {
-        throw new System.NotImplementedException();
+        print("P_Att_R");
+        //AssetAddressLoad.Instance.LoadPrefab(11, projectTransform);
     }
 
     public override void Hitted(float damage)
     {
-        throw new System.NotImplementedException();
+        print("P_Hit:"+ damage);
     }
 
     public override void Idle()
     {
-        throw new System.NotImplementedException();
+        print("P_Idle");
     }
 
     public override void Move()
     {
-        throw new System.NotImplementedException();
+        print("P_Move");
     }
 
     #endregion
