@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
+using System.Linq;
 
 public class CardListUI : MonoBehaviour
 {
-    readonly int loadUIIdx=0;
+    
+    [SerializeField]
+    Image attackImageL, attackImageR;
 
+    private void Update()
+    {
+        
+    }
 
     public void AddCardUI(int spriteIdx)
     {
@@ -20,37 +27,30 @@ public class CardListUI : MonoBehaviour
     }
 
 
+
     //IEnumerator AddCardCoroutine()
     //{
     //    yield return new Wait
     //}
 
-    [ContextMenu("TestAdd")]
-    public void TestAddCardUI()
+
+    public void RemoveFirstCardUI(bool isLeft)
     {
-        AssetAddressLoad.Instance.LoadCardUI(0, transform);
-
-    }
-
-    [ContextMenu("TestAdd2")]
-    public void TestAddCardUI2()
-    {
-        AssetAddressLoad.Instance.LoadCardUI(1, transform);
-
-    }
-
-    [ContextMenu("TestAdd3")]
-    public void TestAddCardUI3()
-    {
-        AssetAddressLoad.Instance.LoadCardUI(2, transform);
-
-    }
-
-    public void RemoveFirstCardUI()
-    {
-        transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite = null;
+        if (isLeft)
+        {
+            attackImageL.sprite = transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite;
+            
+            
+        }
+        else
+        {
+            
+            attackImageR.sprite = transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite;
+            
+        }
         Destroy(transform.GetChild(transform.childCount - 1).gameObject);// 오브젝트 풀링으로 전환 필요
     }
+
 
     public void RemoveAllCardUI()
     {
@@ -66,6 +66,14 @@ public class CardListUI : MonoBehaviour
         {
             Destroy(transform.GetChild(0).gameObject);// 오브젝트 풀링으로 전환 필요
         }
+    }
+
+    public void RemoveSpriteAttack(bool isLeft)
+    {
+        if (isLeft)
+            attackImageL.sprite = null;
+        else
+            attackImageR.sprite = null;
     }
 
 

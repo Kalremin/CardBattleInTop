@@ -17,6 +17,7 @@ public class AssetAddressLoad : MonoBehaviour
 
     AsyncOperationHandle<GameObject> prefabHandle;
 
+
     private void Start()
     {
         if (instance == null)
@@ -41,7 +42,7 @@ public class AssetAddressLoad : MonoBehaviour
         {
             Instantiate(prefabHandle.Result, spawnTransform);
 
-            Addressables.Release(prefabHandle);
+            //Addressables.Release(prefabHandle);
         }
     }
 
@@ -54,7 +55,7 @@ public class AssetAddressLoad : MonoBehaviour
         {
             Instantiate(prefabHandle.Result, spawnTransform);
 
-            Addressables.Release(prefabHandle);
+            //Addressables.Release(prefabHandle);
         }
     }
 
@@ -68,7 +69,7 @@ public class AssetAddressLoad : MonoBehaviour
         {
             image.sprite = spriteHandle.Result;
 
-            Addressables.Release(spriteHandle);
+            //Addressables.Release(spriteHandle);
         }
         
     }
@@ -87,8 +88,8 @@ public class AssetAddressLoad : MonoBehaviour
             prefabHandle.Result.GetComponent<Image>().sprite = spriteHandle.Result;
             Instantiate(prefabHandle.Result, spawnTransform);
 
-            Addressables.Release(spriteHandle);
-            Addressables.Release(prefabHandle);
+            //Addressables.Release(spriteHandle);
+            //Addressables.Release(prefabHandle);
         }
 
 
@@ -101,30 +102,49 @@ public class AssetAddressLoad : MonoBehaviour
 
         if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
         {
+            Image tempImage = prefabHandle.Result.GetComponent<Image>();
+
             for(int i = 0; i < cardUIList.Count; i++)
             {
                 spriteHandle = Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + cardUIList[i]);
                 await spriteHandle.Task;
-                Image tempImage = prefabHandle.Result.GetComponent<Image>();
-                tempImage.sprite = spriteHandle.Result;
-                Instantiate(tempImage.gameObject, spawnTransform);
 
+                if (spriteHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    tempImage.sprite = spriteHandle.Result;
+                    Instantiate(tempImage.gameObject, spawnTransform);
+
+                    //Addressables.Release(spriteHandle);
+                }
             }
 
 
 
-            Addressables.Release(spriteHandle);
-            Addressables.Release(prefabHandle);
+            
+            //Addressables.Release(prefabHandle);
         }
 
 
     }
 
-
-    [ContextMenu("Release")]
-    public void ResRelease()
+    [ContextMenu("AllRelease")]
+    public void ResAllRelease()
     {
         Addressables.Release(spriteHandle);
         Addressables.Release(prefabHandle);
     }
+
+
+    [ContextMenu("SpriteRelease")]
+    public void SpriteRelease()
+    {
+        Addressables.Release(spriteHandle);
+    }
+
+    [ContextMenu("PrefabRelease")]
+    public void PrefabRelease()
+    {
+        Addressables.Release(prefabHandle);
+    }
+
 }
