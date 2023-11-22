@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
+    Camera playerCam;
     PlayerCharacter character;
     Rigidbody playerRigid;
 
@@ -39,7 +40,10 @@ public class PlayerControl : MonoBehaviour
         playerRigid.MovePosition(transform.position +
             (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * character.MoveSpeed);
 
-
+        if (isHoldLockOn)
+        {
+            
+        }
     }
 
     #region PlayerInput
@@ -72,7 +76,9 @@ public class PlayerControl : MonoBehaviour
 
     public void OnLockOn(InputValue input)
     {
+        
         isHoldLockOn = Convert.ToBoolean(input.Get<float>());
+        print(isHoldLockOn);
     }
 
     #endregion

@@ -32,6 +32,10 @@ public class CardPlayer : MonoBehaviour
 
     [SerializeField]
     Transform magicPointTransform;
+
+    [SerializeField]
+    Transform magicAreaEffectTransform;
+
     void Start()
     {
         instance = this;
@@ -176,18 +180,22 @@ public class CardPlayer : MonoBehaviour
         if (isLeft && cardLIdx!=-1)
         {
 
-            AssetAddressLoad.Instance.LoadPrefab(cardLIdx, magicPointTransform);
+            //AssetAddressLoad.Instance.LoadPrefab(cardLIdx, magicPointTransform);
+            AssetAddressLoad.Instance.LoadEffect(0, magicPointTransform);
             cardLIdx = -1;
             
         }
 
         if(!isLeft && cardRIdx != -1)
         {
-            AssetAddressLoad.Instance.LoadPrefab(cardRIdx, magicPointTransform);
+            //AssetAddressLoad.Instance.LoadPrefab(cardRIdx, magicPointTransform);
+            AssetAddressLoad.Instance.LoadEffect(0, magicPointTransform);
             cardRIdx = -1;
         }
 
         cardListUI.RemoveSpriteAttack(isLeft);
 
     }
+
+    
 }

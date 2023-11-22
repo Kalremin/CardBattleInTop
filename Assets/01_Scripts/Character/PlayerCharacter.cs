@@ -12,6 +12,10 @@ public class PlayerCharacter : BaseCharacter
     [SerializeField]
     Transform projectTransform;
 
+    [SerializeField]
+    Transform navTarget;
+    public Vector3 NavTargetVec => navTarget.position;
+
 
     private void Start()
     {
@@ -23,6 +27,7 @@ public class PlayerCharacter : BaseCharacter
         
     }
     
+
 
     #region ICharacterAct
     public override void AttackL()

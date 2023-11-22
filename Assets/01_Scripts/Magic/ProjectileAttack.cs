@@ -9,7 +9,8 @@ public class ProjectileAttack : CardMagic
     public override void ActivateEffect()
     {
         base.ActivateEffect();
-        transform.Translate(transform.forward*moveSpeed*Time.deltaTime);
+        //transform.Translate(transform.forward*moveSpeed*Time.deltaTime);
+        transform.position += transform.forward*moveSpeed*Time.deltaTime;
     }
 
     public void OnTriggerStay(Collider other)

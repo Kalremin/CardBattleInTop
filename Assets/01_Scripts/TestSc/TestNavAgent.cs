@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class TestNavAgent : MonoBehaviour
 {
+    [SerializeField] Transform[] movePoint;
+
     NavMeshAgent navAgent;
 
     bool isch = false;
@@ -22,12 +25,23 @@ public class TestNavAgent : MonoBehaviour
     }
 
     [ContextMenu("Move")]
-
     public void Move()
     {
-        navAgent.destination = isch ? new Vector3(-1, transform.position.y, -1) : new Vector3(1, transform.position.y, 1);
+        navAgent.destination = isch ? movePoint[0].position : movePoint[1].position;
         isch = !isch;
         
+    }
+
+    [ContextMenu("Stop")]
+    public void Stop()
+    {
+        navAgent.isStopped = true;
+    }
+
+    [ContextMenu("Resume")]
+    public void Resume()
+    {
+        navAgent.isStopped = false;
     }
 
 

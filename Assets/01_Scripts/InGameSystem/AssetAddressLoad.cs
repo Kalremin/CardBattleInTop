@@ -16,6 +16,7 @@ public class AssetAddressLoad : MonoBehaviour
     AsyncOperationHandle<Sprite> spriteHandle;
 
     AsyncOperationHandle<GameObject> prefabHandle;
+    AsyncOperationHandle<GameObject> prefabEnemyHandle;
 
     AsyncOperationHandle<GameObject> prefabUIHandle;
 
@@ -32,13 +33,6 @@ public class AssetAddressLoad : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Update()
-    {
-        
-    }
-
-
     public async void LoadPrefab(int objectIdx, Transform spawnTransform)
     {
         
@@ -52,6 +46,38 @@ public class AssetAddressLoad : MonoBehaviour
             Addressables.Release(prefabHandle);
         }
     }
+
+    public async void LoadEffect(int objectIdx, Transform spawnTransform)
+    {
+
+        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEffect + objectIdx);
+        await prefabHandle.Task;
+
+        if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Instantiate(prefabHandle.Result, spawnTransform.position,spawnTransform.parent.rotation);
+
+            Addressables.Release(prefabHandle);
+        }
+    }
+
+    public async void LoadEnemys(List<int> enemyIdxList, Transform[] spawnTransform, Transform enemyParent)
+    {
+        for(int i = 0; i < spawnTransform.Length; i++)
+        {
+            prefabEnemyHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEnemy + enemyIdxList[Random.Range(0,enemyIdxList.Count)]);
+            await prefabEnemyHandle.Task;
+
+            if (prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Instantiate(prefabEnemyHandle.Result, spawnTransform[i].position, Quaternion.identity).transform.SetParent(enemyParent);
+
+                Addressables.Release(prefabEnemyHandle);
+            }
+        }
+    }
+
+
 
     public async void LoadUI(int objectIdx, Transform spawnTransform)
     {
