@@ -15,7 +15,7 @@ public class ProjectileAttack : CardMagic
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent(out BaseCharacter character))//other.CompareTag("Enemy"))
+        if (other.TryGetComponent(out EnemyCharacter character))//other.CompareTag("Enemy"))
         {
             character.Hitted(effectNum);
             //other.GetComponent<BaseCharacter>().Hitted(effectNum);

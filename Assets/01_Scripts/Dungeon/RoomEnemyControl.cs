@@ -53,6 +53,8 @@ public class RoomEnemyControl : MonoBehaviour
 
     public void Spawn()
     {
+        if (nowState != BattleState.Ready)
+            return;
         nowState = BattleState.Battle;
 
         foreach(var temp in battleDoors)
@@ -71,5 +73,7 @@ public class RoomEnemyControl : MonoBehaviour
             temp.SetActive(false);
         }
     }
+
+    
 
 }

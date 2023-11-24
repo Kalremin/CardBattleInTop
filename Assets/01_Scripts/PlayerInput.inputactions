@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Swap",
-                    "type": "Button",
-                    "id": "cb56bc05-2768-4242-9cca-f8301408ece4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LockOn",
                     "type": "Value",
                     "id": "d693945e-af7f-4cb8-bba9-dd9239e1b549",
@@ -146,17 +137,6 @@
                     "processors": "",
                     "groups": "Android",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f481d7e2-a366-468c-b093-3df10093c7ac",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Android",
-                    "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

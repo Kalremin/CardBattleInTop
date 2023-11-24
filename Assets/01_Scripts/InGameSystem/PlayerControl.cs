@@ -7,22 +7,16 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
-    Camera playerCam;
     PlayerCharacter character;
     Rigidbody playerRigid;
 
-    bool isHoldAttackL = false;
-    bool isHoldAttackR = false;
     bool isHoldLockOn = false;
 
     Vector2 dir;
-
-    [SerializeField] Transform projectileTransform;
+    
 
     void Awake()
     {
-        //base.Awake();
-        
         playerRigid = GetComponent<Rigidbody>();
     }
 
@@ -34,16 +28,10 @@ public class PlayerControl : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-        
+    {        
         playerRigid.MovePosition(transform.position +
             (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * character.MoveSpeed);
 
-        if (isHoldLockOn)
-        {
-            
-        }
     }
 
     #region PlayerInput
@@ -54,31 +42,30 @@ public class PlayerControl : MonoBehaviour
 
     public void OnAttackL()
     {
-        print("AttackL");
         character.AttackL();
     }
 
     public void OnAttackR()
     {
-        print("AttackR");
+        
         character.AttackR();
     }
 
     public void OnInteract()
     {
         print("Interact");
+        if (isHoldLockOn)
+        {
+            character.ChangeLockonTarget();
+        }
     }
 
-    public void OnSwap()
-    {
-        print("Swap");
-    }
 
     public void OnLockOn(InputValue input)
     {
         
         isHoldLockOn = Convert.ToBoolean(input.Get<float>());
-        print(isHoldLockOn);
+        character.SetLockState(isHoldLockOn);
     }
 
     #endregion
