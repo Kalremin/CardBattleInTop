@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaEffect : CardMagic
+public class AreaEffect : MagicEffectAttack
 {
     List<BaseCharacter> characterList = new List<BaseCharacter>();
 

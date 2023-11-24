@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ public enum DeckState
 }
 public class CardPlayer : MonoBehaviour
 {
-    
 
     static CardPlayer instance;
     public static CardPlayer Instance=>instance;
@@ -24,8 +24,8 @@ public class CardPlayer : MonoBehaviour
     int cardLIdx=-1;
     int cardRIdx=-1;
 
-    List<int> playerCardsDeck = new List<int>(); // 가지고 있는 카드 리스트
-    List<int> cardIdxList = new List<int>();    // 사용할 카드리스트
+    List<MagicCard> playerCardsDeck = new List<MagicCard>(); // 가지고 있는 카드 리스트
+    List<MagicCard> cardIdxList = new List<MagicCard>();    // 사용할 카드리스트
     Queue<int> tempIdxQueue = new Queue<int>(); // 임시 저장
 
     CardListUI cardListUI;
@@ -36,13 +36,20 @@ public class CardPlayer : MonoBehaviour
     [SerializeField]
     Transform magicAreaEffectTransform;
 
-    void Start()
+
+    private void Awake()
     {
         instance = this;
 
         cardListUI = FindAnyObjectByType<CardListUI>();
-        TestAddCardT();
-        ChangeState(DeckState.Ready);
+    }
+    void Start()
+    {
+        //instance = this;
+
+        //cardListUI = FindAnyObjectByType<CardListUI>();
+        //TestAddCardT();
+        //ChangeState(DeckState.Ready);
     }
 
     // Update is called once per frame
@@ -75,13 +82,13 @@ public class CardPlayer : MonoBehaviour
 
                 if (cardLIdx == -1)
                 {
-                    cardLIdx = cardIdxList[cardIdxList.Count-1];
+                    cardLIdx = cardIdxList[cardIdxList.Count-1].idx;
                     cardIdxList.RemoveAt(cardIdxList.Count - 1);
                     cardListUI.RemoveFirstCardUI(true);
                 }
-                else if (cardRIdx == -1)
+                else if (cardRIdx == -1 && cardIdxList.Count > 0)
                 {
-                    cardRIdx = cardIdxList[cardIdxList.Count - 1];
+                    cardRIdx = cardIdxList[cardIdxList.Count - 1].idx;
                     cardIdxList.RemoveAt(cardIdxList.Count - 1);
                     cardListUI.RemoveFirstCardUI(false);
                 }
@@ -128,7 +135,7 @@ public class CardPlayer : MonoBehaviour
         {
             do
             {
-                tempIdx = Random.Range(0, playerCardsDeck.Count);
+                tempIdx = UnityEngine.Random.Range(0, playerCardsDeck.Count);
             }
             while (tempIdxQueue.Contains(tempIdx));//
 
@@ -138,8 +145,6 @@ public class CardPlayer : MonoBehaviour
 
         cardListUI.AddCardUI(cardIdxList);
 
-
-        //AssetAddressLoad.Instance.LoadSprite(playerCardIdInDeck[useCardsIndexQueue.Dequeue()], attackImageL);
 
     }
 
@@ -166,31 +171,34 @@ public class CardPlayer : MonoBehaviour
 
     public void AddCard(int cardId)
     {
-        playerCardsDeck.Add(cardId);
+        playerCardsDeck.Add(CardsAsset.Instance.GetMagic(cardId));
+
+
     }
 
 
-    public void UseCard(bool isLeft)
+    public void UseCard(bool isLeft, float curManaPoint)
     {
         if (nowState == DeckState.Reset)
             return;
 
-        
-
         if (isLeft && cardLIdx!=-1)
         {
-
-            //AssetAddressLoad.Instance.LoadPrefab(cardLIdx, magicPointTransform);
-            AssetAddressLoad.Instance.LoadEffect(0, magicPointTransform);
-            cardLIdx = -1;
+            if (curManaPoint > CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint)
+            {
+                ObjectPooling.Instance.InstantiateEffect(cardLIdx, magicPointTransform);
+                cardLIdx = -1;
+            }
             
         }
 
         if(!isLeft && cardRIdx != -1)
         {
-            //AssetAddressLoad.Instance.LoadPrefab(cardRIdx, magicPointTransform);
-            AssetAddressLoad.Instance.LoadEffect(0, magicPointTransform);
-            cardRIdx = -1;
+            if (curManaPoint > CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint)
+            {
+                ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicPointTransform);
+                cardRIdx = -1;
+            }
         }
 
         cardListUI.RemoveSpriteAttack(isLeft);

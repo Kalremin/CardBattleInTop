@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileAttack : CardMagic
+public class ProjectileAttack : MagicEffectAttack
 {
+    
     [SerializeField] float moveSpeed = 1f;
     
     public override void ActivateEffect()
@@ -17,10 +18,13 @@ public class ProjectileAttack : CardMagic
     {
         if (other.TryGetComponent(out EnemyCharacter character))//other.CompareTag("Enemy"))
         {
+            tempTime = 0;
             character.Hitted(effectNum);
             //other.GetComponent<BaseCharacter>().Hitted(effectNum);
             // 이펙트 리소스 생성
-            Destroy(gameObject); //  오브젝트 풀링 사용으로 전환
+            //Destroy(gameObject); //  오브젝트 풀링 사용으로 전환
+
+            ObjectPooling.Instance.ReturnEffect(gameObject, idx);
         }
     }
 }

@@ -22,11 +22,16 @@ public class PlayerCharacter : BaseCharacter
 
     private void Start()
     {
-
+        CardPlayer.Instance.AddCard(0);
+        CardPlayer.Instance.AddCard(1);
+        //CardPlayer.Instance.AddCard(2);
+        CardPlayer.Instance.ChangeState(DeckState.Ready);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (IsLock)
         {
             lockonTransform = enemyLockonTransform[lockonIdx];
@@ -49,14 +54,14 @@ public class PlayerCharacter : BaseCharacter
     public override void AttackL()
     {
         print("P_Att_L");
-        CardPlayer.Instance.UseCard(true);
+        CardPlayer.Instance.UseCard(true,manaPoint);
         
     }
 
     public override void AttackR()
     {
         print("P_Att_R");
-        CardPlayer.Instance.UseCard(false);
+        CardPlayer.Instance.UseCard(false,manaPoint);
         
     }
 

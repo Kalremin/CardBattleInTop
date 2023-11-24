@@ -11,17 +11,12 @@ public class CardListUI : MonoBehaviour
     [SerializeField]
     Image attackImageL, attackImageR;
 
-    private void Update()
-    {
-        
-    }
-
     public void AddCardUI(int spriteIdx)
     {
         AssetAddressLoad.Instance.LoadCardUI(spriteIdx, transform);
     }
 
-    public void AddCardUI(List<int> cardUIList)
+    public void AddCardUI(List<MagicCard> cardUIList)
     {
         AssetAddressLoad.Instance.LoadCardUIList(cardUIList, transform);
     }
