@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "LockOn",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "fc18ced1-842b-4374-8a01-ff34048e8adb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

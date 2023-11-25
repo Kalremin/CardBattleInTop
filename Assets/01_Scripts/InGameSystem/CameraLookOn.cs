@@ -20,10 +20,10 @@ public class CameraLookOn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         if (character.IsLock)
         {
+            if (character.LockonTransformm == null)
+                return;
             tempLookonVec = (playerLookTransform.position + character.LockonTransformm.position) / 2;
             transform.LookAt(tempLookonVec);
         }

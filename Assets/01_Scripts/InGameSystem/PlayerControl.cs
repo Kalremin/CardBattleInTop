@@ -63,7 +63,6 @@ public class PlayerControl : MonoBehaviour
 
     public void OnLockOn(InputValue input)
     {
-        
         isHoldLockOn = Convert.ToBoolean(input.Get<float>());
         character.SetLockState(isHoldLockOn);
     }

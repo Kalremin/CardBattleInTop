@@ -29,6 +29,7 @@ public class CardPlayer : MonoBehaviour
     Queue<int> tempIdxQueue = new Queue<int>(); // 임시 저장
 
     CardListUI cardListUI;
+    PlayerCharacter character;
 
     [SerializeField]
     Transform magicPointTransform;
@@ -36,12 +37,15 @@ public class CardPlayer : MonoBehaviour
     [SerializeField]
     Transform magicAreaEffectTransform;
 
+    public int CardLIdx => cardLIdx;
+    public int CardRIdx => cardRIdx;
 
     private void Awake()
     {
         instance = this;
 
         cardListUI = FindAnyObjectByType<CardListUI>();
+        character = FindAnyObjectByType<PlayerCharacter>();
     }
     void Start()
     {
@@ -55,6 +59,7 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(cardLIdx +", "+cardRIdx);
         switch (nowState)
         {
             case DeckState.Ready:// 카드 사용
@@ -184,24 +189,37 @@ public class CardPlayer : MonoBehaviour
 
         if (isLeft && cardLIdx!=-1)
         {
-            if (curManaPoint > CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint)
+            if (curManaPoint >= CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint)
             {
-                ObjectPooling.Instance.InstantiateEffect(cardLIdx, magicPointTransform);
+                character.CostManaPoint(CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint);
+
+                if(CardsAsset.Instance.GetMagic(cardLIdx).isArea)
+                    ObjectPooling.Instance.InstantiateEffect(cardLIdx, magicAreaEffectTransform);
+                else
+                    ObjectPooling.Instance.InstantiateEffect(cardLIdx, magicPointTransform);
                 cardLIdx = -1;
+
+                cardListUI.RemoveSpriteAttack(isLeft);
             }
             
         }
 
         if(!isLeft && cardRIdx != -1)
         {
-            if (curManaPoint > CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint)
+            if (curManaPoint >= CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint)
             {
-                ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicPointTransform);
+                character.CostManaPoint(CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint);
+
+                if (CardsAsset.Instance.GetMagic(cardRIdx).isArea)
+                    ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicAreaEffectTransform);
+                else
+                    ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicPointTransform);
                 cardRIdx = -1;
+                cardListUI.RemoveSpriteAttack(isLeft);
             }
         }
 
-        cardListUI.RemoveSpriteAttack(isLeft);
+        
 
     }
 

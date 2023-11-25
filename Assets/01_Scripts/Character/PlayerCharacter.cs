@@ -5,15 +5,16 @@ using UnityEngine;
 public class PlayerCharacter : BaseCharacter
 {
     bool isLock = false;
+    int lockonIdx = 0;
     float deckResetDuration = 2f;
 
     [SerializeField]
     Transform navTarget;
 
     Transform lockonTransform;
-    int lockonIdx = 0;
 
     List<Transform> enemyLockonTransform = new List<Transform>();
+
     public Vector3 NavTargetVec => navTarget.position;
 
     public Transform LockonTransformm => lockonTransform;
@@ -24,7 +25,7 @@ public class PlayerCharacter : BaseCharacter
     {
         CardPlayer.Instance.AddCard(0);
         CardPlayer.Instance.AddCard(1);
-        //CardPlayer.Instance.AddCard(2);
+        CardPlayer.Instance.AddCard(2);
         CardPlayer.Instance.ChangeState(DeckState.Ready);
     }
 
@@ -35,7 +36,12 @@ public class PlayerCharacter : BaseCharacter
         if (IsLock)
         {
             lockonTransform = enemyLockonTransform[lockonIdx];
-
+            navTarget.LookAt(lockonTransform);
+            navTarget.localEulerAngles = new Vector3(0, navTarget.localEulerAngles.y, 0);
+        }
+        else
+        {
+            navTarget.localEulerAngles = Vector3.zero;
         }
     }
     
@@ -54,20 +60,22 @@ public class PlayerCharacter : BaseCharacter
     public override void AttackL()
     {
         print("P_Att_L");
+
         CardPlayer.Instance.UseCard(true,manaPoint);
+        
         
     }
 
     public override void AttackR()
     {
         print("P_Att_R");
-        CardPlayer.Instance.UseCard(false,manaPoint);
+        CardPlayer.Instance.UseCard(false, manaPoint);
         
     }
 
     public override void Hitted(float damage)
     {
-        print("P_Hit:"+ damage);
+        //print("P_Hit:"+ damage);
     }
 
     public override void Idle()
@@ -81,6 +89,11 @@ public class PlayerCharacter : BaseCharacter
     }
 
     #endregion
+
+    public void CostManaPoint(float costMana)
+    {
+        manaPoint -= costMana;
+    }
 
     public void ChangeLockonTarget()
     {
