@@ -13,11 +13,13 @@ public class MagicEffectAttack : MonoBehaviour
 
     delegate void MagicEffect();
     MagicEffect magicEffectMethod;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         magicEffectMethod = ActivateEffect;
+        
     }
 
     // Update is called once per frame

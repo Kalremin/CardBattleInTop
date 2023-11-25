@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Animator))]
 public class EnemyCharacter : BaseCharacter
 {
     public enum EnemyState
@@ -20,10 +19,15 @@ public class EnemyCharacter : BaseCharacter
     NavMeshAgent navAgent;
     PlayerCharacter playerCharacter;
 
+    [SerializeField] float detectDistance = 50;
+    [SerializeField] float attackRange = 1;
+    [SerializeField] Transform modelTransform;
+
+
     protected override void Awake()
     {
         base.Awake();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         playerCharacter = FindFirstObjectByType<PlayerCharacter>();
         ChangeState(EnemyState.Move);
@@ -31,30 +35,40 @@ public class EnemyCharacter : BaseCharacter
     // Start is called before the first frame update
     void Start()
     {
-        
+        ChangeState(EnemyState.Idle);
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
+        
+
         switch (nowState)
         {
             case EnemyState.Idle:
-
-                break;
+                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < detectDistance)
+                    ChangeState(EnemyState.Move);
+                    break;
             case EnemyState.Move:
-                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < 1)
+                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < attackRange)
                     ChangeState(EnemyState.Attack);
 
                 navAgent.destination = playerCharacter.transform.position;
 
+
                 break;
             case EnemyState.Attack:
-                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) > 1)
+                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) > attackRange)
                     ChangeState(EnemyState.Move);
 
                 if (!playerCharacter.IsAlive)
                     ChangeState(EnemyState.Idle);
+
+                
+                
+
                 break;
         }
     }
@@ -66,17 +80,19 @@ public class EnemyCharacter : BaseCharacter
         {
             case EnemyState.Idle:
                 navAgent.isStopped = true;
-
+                animator.SetBool("Move", false);
+                animator.SetBool("Attack", false);
                 break;
             case EnemyState.Move:
-                
                 navAgent.isStopped = false;
-                //animator.SetBool("Move", true);
+                animator.SetBool("Move",true);
+                animator.SetBool("Attack", false);
                 break;
             case EnemyState.Attack:
                 navAgent.isStopped = true;
-                //animator.SetBool("Move", false);
-                //animator.SetBool("Attack", true);
+                animator.SetBool("Attack", true);
+                animator.SetBool("Move", false);
+                
                 break; ;
         }
 
@@ -97,7 +113,8 @@ public class EnemyCharacter : BaseCharacter
 
     public override void Hitted(float damage)
     {
-        throw new System.NotImplementedException();
+        healthPoint -= damage;
+        animator.SetTrigger("Hit");
     }
 
     public override void Idle()
@@ -111,4 +128,6 @@ public class EnemyCharacter : BaseCharacter
     }
 
     #endregion
+
+
 }

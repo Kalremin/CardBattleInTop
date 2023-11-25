@@ -59,7 +59,7 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(cardLIdx +", "+cardRIdx);
+        
         switch (nowState)
         {
             case DeckState.Ready:// 카드 사용

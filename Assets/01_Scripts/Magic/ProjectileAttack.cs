@@ -11,11 +11,14 @@ public class ProjectileAttack : MagicEffectAttack
     {
         base.ActivateEffect();
         //transform.Translate(transform.forward*moveSpeed*Time.deltaTime);
-        transform.position += transform.forward*moveSpeed*Time.deltaTime;
+
+        transform.position += transform.forward * moveSpeed * Time.deltaTime;
     }
 
-    public void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        print(other.name);
+
         if (other.TryGetComponent(out EnemyCharacter character))//other.CompareTag("Enemy"))
         {
             tempTime = 0;
@@ -27,4 +30,6 @@ public class ProjectileAttack : MagicEffectAttack
             ObjectPooling.Instance.ReturnEffect(gameObject, idx);
         }
     }
+
+    
 }
