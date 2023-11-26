@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlayerCharacter : BaseCharacter
 {
-    bool isLock = false;
-    int lockonIdx = 0;
+
+    public enum PlayerState
+    {
+        Idle,
+        Move,
+        Magic,
+        Die
+    }
+
+    PlayerState nowState;
     float deckResetDuration = 2f;
 
-    [SerializeField]
-    Transform navTarget;
-
-    Transform lockonTransform;
-
-    List<Transform> enemyLockonTransform = new List<Transform>();
-
+    CameraPointCenter camPointCenter;
+    [SerializeField] Transform navTarget;
     public Vector3 NavTargetVec => navTarget.position;
-
-    public Transform LockonTransformm => lockonTransform;
-
-    public bool IsLock => isLock && enemyLockonTransform.Count>0;
 
     private void Start()
     {
+        camPointCenter = GetComponentInChildren<CameraPointCenter>();
+        animator = GetComponentInChildren<Animator>();
         CardPlayer.Instance.AddCard(0);
         CardPlayer.Instance.AddCard(1);
         CardPlayer.Instance.AddCard(2);
@@ -33,59 +36,69 @@ public class PlayerCharacter : BaseCharacter
     {
         base.Update();
 
-        if (IsLock)
+        if (camPointCenter.IsLock)
         {
-            lockonTransform = enemyLockonTransform[lockonIdx];
-            navTarget.LookAt(lockonTransform);
+            
+            navTarget.LookAt(camPointCenter.LockonTransformm);
             navTarget.localEulerAngles = new Vector3(0, navTarget.localEulerAngles.y, 0);
         }
         else
         {
             navTarget.localEulerAngles = Vector3.zero;
         }
+
+        switch (nowState)
+        {
+            case PlayerState.Idle:
+                break;
+            case PlayerState.Move:
+                break;
+            
+        }
     }
     
-    public void SetLockState(bool isLock)
-    {
-        this.isLock = isLock;
-        if (isLock)
-        {
-            lockonIdx = 0;
-
-        }
-        
-    }
 
     #region ICharacterAct
     public override void AttackL()
     {
-        print("P_Att_L");
-
-        CardPlayer.Instance.UseCard(true,manaPoint);
+        
+        if(CardPlayer.Instance.UseCard(true,manaPoint))
+            animator.SetTrigger("Magic");
         
         
     }
 
     public override void AttackR()
     {
-        print("P_Att_R");
-        CardPlayer.Instance.UseCard(false, manaPoint);
+        
+        if(CardPlayer.Instance.UseCard(false, manaPoint))
+            animator.SetTrigger("Magic");
+
         
     }
 
     public override void Hitted(float damage)
     {
-        //print("P_Hit:"+ damage);
+        healthPoint -= damage;
+        if (healthPoint > 0)
+            animator.SetTrigger("Hit");
+        else if(nowState != PlayerState.Die)
+        {
+            nowState = PlayerState.Die;
+            isAlive = false;
+            animator.SetTrigger("Die");
+        }
+
     }
 
     public override void Idle()
     {
-        print("P_Idle");
+        animator.SetBool("Move", false);
     }
 
     public override void Move()
     {
-        print("P_Move");
+        animator.SetBool("Move", true);
     }
 
     #endregion
@@ -95,27 +108,8 @@ public class PlayerCharacter : BaseCharacter
         manaPoint -= costMana;
     }
 
-    public void ChangeLockonTarget()
-    {
-        if (lockonIdx == enemyLockonTransform.Count - 1)
-        {
-            lockonIdx = 0;
-        }
-        else
-            lockonIdx++;
-    }
+    
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-            enemyLockonTransform.Add(other.transform);
-        
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-            enemyLockonTransform.Remove(other.transform);
-        
-    }
+    
 }

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
+    CameraPointCenter camCenter;
     PlayerCharacter character;
     Rigidbody playerRigid;
 
@@ -17,54 +18,73 @@ public class PlayerControl : MonoBehaviour
 
     void Awake()
     {
+        camCenter = GetComponentInChildren<CameraPointCenter>();
         playerRigid = GetComponent<Rigidbody>();
+        character = GetComponent<PlayerCharacter>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        character = GetComponent<PlayerCharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {        
-        playerRigid.MovePosition(transform.position +
-            (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * character.MoveSpeed);
+        if(character.IsAlive)
+            playerRigid.MovePosition(transform.position +
+                (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * character.MoveSpeed);
 
     }
 
     #region PlayerInput
     public void OnMove(InputValue input)
     {
-        dir = input.Get<Vector2>();
+        if (character.IsAlive)
+        {
+
+            dir = input.Get<Vector2>();
+            if (dir.Equals(Vector2.zero))
+            {
+                character.Idle();
+            }
+            else
+            {
+                character.Move();
+            }
+        }
+        
     }
 
     public void OnAttackL()
     {
-        character.AttackL();
+        if (character.IsAlive)
+            character.AttackL();
     }
 
     public void OnAttackR()
     {
-        
-        character.AttackR();
+        if (character.IsAlive)
+            character.AttackR();
     }
 
     public void OnInteract()
     {
-        print("Interact");
-        if (isHoldLockOn)
-        {
-            character.ChangeLockonTarget();
-        }
+        if (character.IsAlive)
+            if (isHoldLockOn)
+                camCenter.ChangeLockonTarget();
+            
     }
 
 
     public void OnLockOn(InputValue input)
     {
-        isHoldLockOn = Convert.ToBoolean(input.Get<float>());
-        character.SetLockState(isHoldLockOn);
+        if (character.IsAlive)
+        {
+            isHoldLockOn = Convert.ToBoolean(input.Get<float>());
+            camCenter.SetIsLock(isHoldLockOn);
+        }
+        
     }
 
     #endregion

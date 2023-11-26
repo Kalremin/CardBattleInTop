@@ -182,10 +182,10 @@ public class CardPlayer : MonoBehaviour
     }
 
 
-    public void UseCard(bool isLeft, float curManaPoint)
+    public bool UseCard(bool isLeft, float curManaPoint)
     {
         if (nowState == DeckState.Reset)
-            return;
+            return false;
 
         if (isLeft && cardLIdx!=-1)
         {
@@ -200,6 +200,8 @@ public class CardPlayer : MonoBehaviour
                 cardLIdx = -1;
 
                 cardListUI.RemoveSpriteAttack(isLeft);
+
+                return true;
             }
             
         }
@@ -216,9 +218,11 @@ public class CardPlayer : MonoBehaviour
                     ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicPointTransform);
                 cardRIdx = -1;
                 cardListUI.RemoveSpriteAttack(isLeft);
+                return true;
             }
         }
 
+        return false;
         
 
     }

@@ -10,7 +10,8 @@ public class EnemyCharacter : BaseCharacter
     {
         Idle,
         Move,
-        Attack
+        Attack,
+        Die
     }
 
     EnemyState nowState;
@@ -22,6 +23,7 @@ public class EnemyCharacter : BaseCharacter
     [SerializeField] float detectDistance = 50;
     [SerializeField] float attackRange = 1;
     [SerializeField] Transform modelTransform;
+    
 
 
     protected override void Awake()
@@ -35,6 +37,7 @@ public class EnemyCharacter : BaseCharacter
     // Start is called before the first frame update
     void Start()
     {
+        
         ChangeState(EnemyState.Idle);
     }
 
@@ -48,7 +51,7 @@ public class EnemyCharacter : BaseCharacter
         switch (nowState)
         {
             case EnemyState.Idle:
-                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < detectDistance)
+                if (playerCharacter.IsAlive && Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < detectDistance)
                     ChangeState(EnemyState.Move);
                     break;
             case EnemyState.Move:
@@ -60,11 +63,11 @@ public class EnemyCharacter : BaseCharacter
 
                 break;
             case EnemyState.Attack:
+                if (!playerCharacter.IsAlive)
+                    ChangeState(EnemyState.Idle);
                 if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) > attackRange)
                     ChangeState(EnemyState.Move);
 
-                if (!playerCharacter.IsAlive)
-                    ChangeState(EnemyState.Idle);
 
                 
                 
@@ -128,6 +131,8 @@ public class EnemyCharacter : BaseCharacter
     }
 
     #endregion
+
+    
 
 
 }
