@@ -33,17 +33,25 @@ public class CardListUI : MonoBehaviour
     {
         if (isLeft)
         {
-            attackImageL.sprite = transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite;
+            attackImageL.sprite = 
+                transform.childCount > 0 ? 
+                transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite :
+                null;
             
             
         }
         else
         {
             
-            attackImageR.sprite = transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite;
-            
+            attackImageR.sprite = transform.childCount > 0 ?
+                transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite :
+                null;
+
         }
-        Destroy(transform.GetChild(transform.childCount - 1).gameObject);// 오브젝트 풀링으로 전환 필요
+
+        if(transform.childCount > 0)
+            //Addressables.ReleaseInstance(transform.GetChild(transform.childCount - 1).gameObject);
+            Destroy(transform.GetChild(transform.childCount - 1).gameObject);// 오브젝트 풀링으로 전환 필요
     }
 
 

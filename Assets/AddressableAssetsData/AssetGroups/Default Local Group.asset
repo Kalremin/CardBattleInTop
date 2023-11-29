@@ -16,7 +16,92 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a7c39d37351907a4bb5692db333c7607
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: fa657ae5e0e9cdc47a33994d4080836f
+    m_Address: spr_magic_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ee2acac0a9ab8441bd5f9757e3ea6e8
+    m_Address: spr_magic_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 885122bb294da974f815b57170b9139c
+    m_Address: spr_magic_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 19e4e3b2a253de047b24529835e274e5
+    m_Address: spr_magic_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ae59a6806579604d93d5694163c3de5
+    m_Address: ui_firemagic_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 695471fa89aeb314aac4844fa492c16f
+    m_Address: ui_firemagic_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f753ba9d34c8864ebdb839e16ae0d6e
+    m_Address: ui_firemagic_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b92d60928c5d3e46aded098f7d4031d
+    m_Address: ui_firemagic_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c5fa647f7e998644ac34b569f3fde9d
+    m_Address: prf_enemy_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 027d234c95bab35499423d98765d5b31
+    m_Address: prf_effect_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c48bb6b625c7a7448a7d88f2fbee555d
+    m_Address: prf_effect_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f3f8d45b6fc9f9419391c0a385116c9
+    m_Address: prf_effect_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86cf272c329017647a3b0c6c6edcff58
+    m_Address: VFX_Fire_01_Medium_Simple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81159261a9ccdfa4ea93528d98b79fa2
+    m_Address: Assets/48 Particle Effect Pack/Texture/Line.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cce5ce00b20404c43a1daea10b884856
+    m_Address: Assets/48 Particle Effect Pack/Texture/Cube.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b50e61b749b338478dc4441f0ab6bbf
+    m_Address: Assets/48 Particle Effect Pack/Texture/Flash.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10e04d4c0252dfe4982ad921349078c4
+    m_Address: Assets/04_Prefab/Character/Enemy/Xbot/X Bot.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 457cdd625c1dfd74e8a51f35798e22eb, type: 2}
   m_SchemaSet:

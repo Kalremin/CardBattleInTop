@@ -46,7 +46,8 @@ public class ObjectPooling : MonoBehaviour
         }
         else
         {
-            AssetAddressLoad.Instance.LoadEffect(effectIdx, spawnTransform);
+            Instantiate(CardsAsset.Instance.GetMagic(effectIdx).objEffect, spawnTransform.position,spawnTransform.rotation).GetComponent<MagicEffectAttack>().SetIdx(effectIdx);
+            //AssetAddressLoad.Instance.LoadEffect(effectIdx, spawnTransform);
         }
 
 

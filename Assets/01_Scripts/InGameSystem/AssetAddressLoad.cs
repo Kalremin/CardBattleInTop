@@ -20,7 +20,7 @@ public class AssetAddressLoad : MonoBehaviour
 
     AsyncOperationHandle<GameObject> prefabUIHandle;
 
-
+    Dictionary<string, AsyncOperationHandle<GameObject>> tempDic = new Dictionary<string, AsyncOperationHandle<GameObject>>();
     private void Start()
     {
         if (instance == null)
@@ -49,15 +49,26 @@ public class AssetAddressLoad : MonoBehaviour
 
     public async void LoadEffect(int objectIdx, Transform spawnTransform)
     {
+        if (!tempDic.ContainsKey(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID))
+        {
+            tempDic.Add(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID,
+                //Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEffect + objectIdx));
+                CardsAsset.Instance.GetMagic(objectIdx).magicEffect.LoadAssetAsync<GameObject>());
+            prefabHandle = tempDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
+            await prefabHandle.Task;
+        }
+        else
+        {
+            prefabHandle = tempDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
 
-        prefabHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEffect + objectIdx);
-        await prefabHandle.Task;
+        }
+
 
         if (prefabHandle.Status == AsyncOperationStatus.Succeeded)
         {
             Instantiate(prefabHandle.Result, spawnTransform.position,spawnTransform.parent.rotation).GetComponent<MagicEffectAttack>().SetIdx(objectIdx);
 
-            Addressables.Release(prefabHandle);
+            //Addressables.Release(prefabHandle);
         }
     }
 
@@ -76,36 +87,6 @@ public class AssetAddressLoad : MonoBehaviour
             }
         }
     }
-
-
-
-    //public async void LoadUI(int objectIdx, Transform spawnTransform)
-    //{
-    //    prefabUIHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + objectIdx);
-    //    await prefabUIHandle.Task;
-
-    //    if (prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
-    //    {
-    //        Instantiate(prefabUIHandle.Result, spawnTransform);
-
-    //        Addressables.Release(prefabUIHandle);
-    //    }
-    //}
-
-
-    //public async void LoadSprite(int magicSpriteIdx, Image image)
-    //{
-    //    spriteHandle = Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + magicSpriteIdx);
-    //    await spriteHandle.Task;
-
-    //    if (spriteHandle.Status == AsyncOperationStatus.Succeeded)
-    //    {
-    //        image.sprite = spriteHandle.Result;
-
-    //        Addressables.Release(spriteHandle);
-    //    }
-        
-    //}
 
     public async void LoadCardUI(int magicSpriteIdx, Transform spawnTransform)
     {
@@ -128,50 +109,57 @@ public class AssetAddressLoad : MonoBehaviour
 
     }
 
+
     public async void LoadCardUIList(List<MagicCard> cardUIList, Transform spawnTransform)
     {
-
-        for(int i = 0; i < cardUIList.Count; i++)
+        for (int i = 0; i < cardUIList.Count; i++)
         {
-            prefabUIHandle = cardUIList[i].magicUI.LoadAssetAsync<GameObject>();
-            await prefabUIHandle.Task;
 
-            if(prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
+            if (!tempDic.ContainsKey(cardUIList[i].magicUI.AssetGUID))
             {
+                tempDic.Add(cardUIList[i].magicUI.AssetGUID, cardUIList[i].magicUI.LoadAssetAsync<GameObject>());
+                prefabUIHandle = tempDic[cardUIList[i].magicUI.AssetGUID];
+                await prefabUIHandle.Task;
+            }
+            else
+            {
+                prefabUIHandle = tempDic[cardUIList[i].magicUI.AssetGUID];
+
+            }
+                //prefabUIHandle = cardUIList[i].magicUI.InstantiateAsync(spawnTransform);
+            
+            
+
+            if (prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+
+                //Addressables.ReleaseInstance(prefabUIHandle.Result);
+                //print(cardUIList[i].magicUI.AssetGUID);
+                //tempQueue.Enqueue(prefabUIHandle);
+
                 Instantiate(prefabUIHandle.Result, spawnTransform);
-                Addressables.Release(prefabUIHandle);
+                //Addressables.ReleaseInstance(prefabUIHandle);
             }
         }
 
-        //prefabUIHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabUI + StaticVar.UI_CardIdx);
-        //await prefabUIHandle.Task;
-
-        //if (prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
-        //{
-        //    for(int i = 0; i < cardUIList.Count; i++)
-        //    {
-        //        spriteHandle = Addressables.LoadAssetAsync<Sprite>(StaticVar.resSprite + StaticVar.spriteMagic + cardUIList[i]);
-        //        await spriteHandle.Task;
-
-        //        Instantiate()
-
-        //        if (spriteHandle.Status == AsyncOperationStatus.Succeeded)
-        //        {
-        //            tempImage.sprite = spriteHandle.Result;
-        //            Instantiate(tempImage.gameObject, spawnTransform);
-
-        //            Addressables.Release(spriteHandle);
-        //        }
-        //    }
-
-
-
-        //    Addressables.Release(prefabUIHandle);
-
-        //}
-
-
     }
+
+    //public async void LoadCardUIList(List<MagicCard> cardUIList, Transform spawnTransform)
+    //{
+
+    //    for(int i = 0; i < cardUIList.Count; i++)
+    //    {
+    //        prefabUIHandle = cardUIList[i].magicUI.LoadAssetAsync<GameObject>();
+    //        await prefabUIHandle.Task;
+
+    //        if(prefabUIHandle.Status == AsyncOperationStatus.Succeeded)
+    //        {
+    //            Instantiate(prefabUIHandle.Result, spawnTransform);
+    //            Addressables.Release(prefabUIHandle);
+    //        }
+    //    }
+
+    //}
 
     //[ContextMenu("AllRelease")]
     //public void ResAllRelease()
@@ -179,7 +167,7 @@ public class AssetAddressLoad : MonoBehaviour
     //    Addressables.Release(spriteHandle);
     //    Addressables.Release(prefabHandle);
 
-        
+
     //}
 
     //[ContextMenu("TestRelease")]
@@ -215,5 +203,19 @@ public class AssetAddressLoad : MonoBehaviour
     //{
     //    Addressables.Release(prefabHandle);
     //}
+
+    [ContextMenu("PrefabUIRelease")]
+    public void PrefabRelease()
+    {
+        //Addressables.Release(tempQueue.Dequeue());
+    }
+
+    public void ReleaseAll()
+    {
+        foreach(string temp in tempDic.Keys)
+        {
+            Addressables.Release(tempDic[temp]);
+        }
+    }
 
 }

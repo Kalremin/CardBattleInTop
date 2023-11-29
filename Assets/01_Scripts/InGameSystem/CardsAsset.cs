@@ -12,6 +12,7 @@ public class MagicCard
     public int costManaPoint;
     public AssetReference magicUI;
     public AssetReference magicEffect;
+    public GameObject objEffect;
     public bool isArea = false;
     public string description;
 }
