@@ -77,31 +77,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 86cf272c329017647a3b0c6c6edcff58
-    m_Address: VFX_Fire_01_Medium_Simple
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 81159261a9ccdfa4ea93528d98b79fa2
-    m_Address: Assets/48 Particle Effect Pack/Texture/Line.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cce5ce00b20404c43a1daea10b884856
-    m_Address: Assets/48 Particle Effect Pack/Texture/Cube.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1b50e61b749b338478dc4441f0ab6bbf
-    m_Address: Assets/48 Particle Effect Pack/Texture/Flash.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 10e04d4c0252dfe4982ad921349078c4
-    m_Address: Assets/04_Prefab/Character/Enemy/Xbot/X Bot.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 457cdd625c1dfd74e8a51f35798e22eb, type: 2}
   m_SchemaSet:
