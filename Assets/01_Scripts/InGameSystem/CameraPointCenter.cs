@@ -10,6 +10,9 @@ public class CameraPointCenter : MonoBehaviour
     Transform lockonTransform;
     List<Transform> enemyLockonTransform = new List<Transform>();
 
+    public bool IsLock => isLock && enemyLockonTransform.Count > 0;
+    public Transform LockonTransformm => lockonTransform;
+
     private void Update()
     {
         if (IsLock)
@@ -43,27 +46,36 @@ public class CameraPointCenter : MonoBehaviour
 
     }
 
-    
-
-
-    public bool IsLock => isLock && enemyLockonTransform.Count > 0;
-    public Transform LockonTransformm => lockonTransform;
     public void SetIsLock(bool val)
     {
         isLock = val;
         if (isLock)
         {
             lockonIdx = 0;
+            lockonTransform = enemyLockonTransform[lockonIdx];
+            lockonTransform.GetComponent<EnemyCharacter>().lockOnGround.SetActive(true);
+        }
+        else
+        {
+            lockonTransform = enemyLockonTransform[lockonIdx];
+            lockonTransform.GetComponent<EnemyCharacter>().lockOnGround.SetActive(false);
         }
     }
 
     public void ChangeLockonTarget()
     {
+
+        lockonTransform.GetComponent<EnemyCharacter>().lockOnGround.SetActive(false);
+
         if (lockonIdx == enemyLockonTransform.Count - 1)
         {
             lockonIdx = 0;
         }
         else
             lockonIdx++;
+
+        lockonTransform = enemyLockonTransform[lockonIdx];
+        lockonTransform.GetComponent<EnemyCharacter>().lockOnGround.SetActive(true);
+
     }
 }

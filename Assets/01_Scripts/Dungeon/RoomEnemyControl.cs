@@ -59,7 +59,8 @@ public class RoomEnemyControl : MonoBehaviour
 
         foreach(var temp in battleDoors)
         {
-            temp.SetActive(true);
+            if(temp!=null)
+                temp.SetActive(true);
         }
 
         AssetAddressLoad.Instance.LoadEnemys(enemyIdxList, enemySpawner, enemyGroupTransform);
@@ -70,7 +71,8 @@ public class RoomEnemyControl : MonoBehaviour
         nowState = BattleState.Clear;
         foreach (var temp in battleDoors)
         {
-            temp.SetActive(false);
+            if (temp != null)
+                temp.SetActive(false);
         }
     }
 

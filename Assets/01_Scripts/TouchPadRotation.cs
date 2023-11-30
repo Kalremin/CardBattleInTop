@@ -7,24 +7,14 @@ public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,
 {
     [SerializeField]
     Transform playerTransform;
+    [SerializeField]
+    float multiplyRot=1;
 
     Vector2 touchPosition;
     Vector2 nowPos;
     bool isTouching = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isTouching)
-        {
-
-        }
-    }
+    
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -38,7 +28,10 @@ public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,
         {
             nowPos = eventData.position;
             Vector2 dir = nowPos - touchPosition;
-            playerTransform.rotation = Quaternion.Euler(playerTransform.eulerAngles.x, playerTransform.eulerAngles.y + dir.x, playerTransform.eulerAngles.z);
+            playerTransform.rotation = 
+                Quaternion.Euler(playerTransform.eulerAngles.x, 
+                playerTransform.eulerAngles.y + dir.x*multiplyRot, 
+                playerTransform.eulerAngles.z);
             SetTouchPosition(eventData);
         }
     }
@@ -51,8 +44,6 @@ public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,
     private void SetTouchPosition(PointerEventData eventData)
     {
         touchPosition = eventData.position;
-
-        Debug.Log("Touch Position: " + touchPosition);
     }
 
 }

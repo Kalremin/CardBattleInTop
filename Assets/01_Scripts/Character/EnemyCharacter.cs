@@ -20,9 +20,11 @@ public class EnemyCharacter : BaseCharacter
     NavMeshAgent navAgent;
     PlayerCharacter playerCharacter;
 
-    [SerializeField] float detectDistance = 50;
-    [SerializeField] float attackRange = 1;
-    [SerializeField] Transform modelTransform;
+    [SerializeField] protected float detectDistance = 50;
+    [SerializeField] protected float attackRange = 1;
+    [SerializeField] protected Transform modelTransform;
+
+    public GameObject lockOnGround;
     
 
 
