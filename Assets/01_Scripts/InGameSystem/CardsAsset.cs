@@ -41,4 +41,6 @@ public class CardsAsset : MonoBehaviour
 
     public MagicCard GetMagic(int idx) => magicCards[idx];
 
+    public int CountAllCard => magicCards.Count;
+
 }

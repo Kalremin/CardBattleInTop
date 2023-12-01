@@ -30,4 +30,7 @@ public class CameraLookOn : MonoBehaviour
         else
             transform.LookAt(playerLookTransform);
     }
+
+
+
 }

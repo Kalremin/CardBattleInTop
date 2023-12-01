@@ -15,16 +15,28 @@ public class PlayerCharacter : BaseCharacter
         Die
     }
 
+    static PlayerCharacter instance;
+    public static PlayerCharacter Instance=>instance;
+
     PlayerState nowState;
     float deckResetDuration = 2f;
 
-    CameraPointCenter camPointCenter;
+    //CameraPointCenter camPointCenter;
+    TouchPadRotation padRotation;
+
     [SerializeField] Transform navTarget;
     public Vector3 NavTargetVec => navTarget.position;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        instance = this;
+    }
+
     private void Start()
     {
-        camPointCenter = GetComponentInChildren<CameraPointCenter>();
+        //camPointCenter = GetComponentInChildren<CameraPointCenter>();
+        padRotation = FindAnyObjectByType<TouchPadRotation>();
         animator = GetComponentInChildren<Animator>();
         CardPlayer.Instance.AddCard(0);
         CardPlayer.Instance.AddCard(1);
@@ -108,6 +120,12 @@ public class PlayerCharacter : BaseCharacter
         manaPoint -= costMana;
     }
 
+    public void RestoreHealthPoint(float restorePoint)
+    {
+        healthPoint += restorePoint;
+        if (healthPoint > maxHealthPoint)
+            healthPoint = maxHealthPoint;
+    }
     
 
 

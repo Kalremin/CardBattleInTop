@@ -44,7 +44,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5584083587199839287}
-  - component: {fileID: 1446022917092140799}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -67,23 +66,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6171304653988362066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1446022917092140799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659757472609895731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e445d378602a3574aa137f5738c12003, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossEnemy:
-  - m_AssetGUID: 72f9ef6fdb82bcf4eb9d6ff709f0da12
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
 --- !u!1 &2147871088894499293
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +112,7 @@ GameObject:
   - component: {fileID: 6171304653988362066}
   - component: {fileID: 7806968883153812641}
   - component: {fileID: 2913670920775689192}
+  - component: {fileID: 496877791277399268}
   m_Layer: 0
   m_Name: BossRoom
   m_TagString: Untagged
@@ -250,6 +233,24 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 26673685af4523a4e997ddf400eace46, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &496877791277399268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2333205454765024110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e445d378602a3574aa137f5738c12003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossEnemy:
+  - m_AssetGUID: 72f9ef6fdb82bcf4eb9d6ff709f0da12
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  spawnerTransform: {fileID: 5584083587199839287}
 --- !u!1 &6009412468010930653
 GameObject:
   m_ObjectHideFlags: 0

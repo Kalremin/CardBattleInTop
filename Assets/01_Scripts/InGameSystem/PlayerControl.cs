@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerControl : MonoBehaviour
 {
-    CameraPointCenter camCenter;
+   // CameraPointCenter camCenter;
     PlayerCharacter character;
     Rigidbody playerRigid;
 
@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour
 
     void Awake()
     {
-        camCenter = GetComponentInChildren<CameraPointCenter>();
+        //camCenter = GetComponentInChildren<CameraPointCenter>();
         playerRigid = GetComponent<Rigidbody>();
         character = GetComponent<PlayerCharacter>();
     }
@@ -70,20 +70,20 @@ public class PlayerControl : MonoBehaviour
 
     public void OnInteract()
     {
-        if (character.IsAlive)
-            if (isHoldLockOn)
-                camCenter.ChangeLockonTarget();
+        //if (character.IsAlive)
+        //    if (isHoldLockOn)
+        //        camCenter.ChangeLockonTarget();
             
     }
 
 
     public void OnLockOn(InputValue input)
     {
-        if (character.IsAlive)
-        {
-            isHoldLockOn = Convert.ToBoolean(input.Get<float>());
-            camCenter.SetIsLock(isHoldLockOn);
-        }
+        //if (character.IsAlive)
+        //{
+        //    isHoldLockOn = Convert.ToBoolean(input.Get<float>());
+        //    camCenter.SetIsLock(isHoldLockOn);
+        //}
         
     }
 
