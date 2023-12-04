@@ -5,20 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerHud : MonoBehaviour
 {
-    PlayerCharacter character;
 
     [SerializeField] Slider playerHealth;
     [SerializeField] Slider playerMana;
 
-    private void Awake()
-    {
-        character = FindAnyObjectByType<PlayerCharacter>();
-    }
     // Update is called once per frame
     void Update()
     {
-        playerHealth.value = character.HealthPoint / character.MaxHealthPoint;
-        playerMana.value = character.ManaPoint / character.MaxManaPoint;
+        playerHealth.value = PlayerCharacter.Instance.HealthPoint / PlayerCharacter.Instance.MaxHealthPoint;
+        playerMana.value = PlayerCharacter.Instance.ManaPoint / PlayerCharacter.Instance.MaxManaPoint;
 
         //print(character.HealthPoint + ", " + character.MaxHealthPoint);
         //print(character.ManaPoint + ", " + character.MaxManaPoint);

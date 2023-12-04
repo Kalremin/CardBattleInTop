@@ -6,6 +6,11 @@ public class EnemyColliderForEvent : MonoBehaviour
 {
     [SerializeField] Collider[] attackColliders;
     // Start is called before the first frame update
+    bool isAttack = false;
+    bool isAlive = true;
+
+    public bool IsAlive => isAlive;
+    public bool IsAttack=>isAttack;
     void Start()
     {
         attackColliders = GetComponentsInChildren<Collider>();
@@ -16,5 +21,18 @@ public class EnemyColliderForEvent : MonoBehaviour
         {
             attackColliders[i].enabled = val > 0 ? true : false;
         }
+        
+
     }
+
+    public void IsAttacking(int val)
+    {
+        isAttack = val > 0 ? true : false;
+    }
+
+    public void ClearPrefab()
+    {
+        isAlive = false;
+    }
+
 }

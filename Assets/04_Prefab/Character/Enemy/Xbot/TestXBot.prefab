@@ -163,8 +163,9 @@ MonoBehaviour:
   manaRegen: 0
   moveSpeed: 1
   detectDistance: 50
-  attackRange: 2
+  attackRange: 1.5
   modelTransform: {fileID: 0}
+  enemyAniEvent: {fileID: 2284296926967682970}
   lockOnGround: {fileID: 95486341063232124}
 --- !u!136 &7428881860753677235
 CapsuleCollider:

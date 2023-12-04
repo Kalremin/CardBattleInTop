@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,25 +19,31 @@ public class PlayerCharacter : BaseCharacter
     static PlayerCharacter instance;
     public static PlayerCharacter Instance=>instance;
 
+    [SerializeField] Transform playerModelTransform;
+    [SerializeField] float noDamageTime = 3;
+
     PlayerState nowState;
+    bool isHit = false;
+    int manaPointInt;
+
     float deckResetDuration = 2f;
+    float tempTime = 0;
 
-    //CameraPointCenter camPointCenter;
-    TouchPadRotation padRotation;
-
-    [SerializeField] Transform navTarget;
-    public Vector3 NavTargetVec => navTarget.position;
+    public Vector3 playerModelPos => playerModelTransform.position;
+    public int ManaPointInt => manaPointInt;
 
     protected override void Awake()
     {
-        base.Awake();
+        //base.Awake();
+        
         instance = this;
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
     {
         //camPointCenter = GetComponentInChildren<CameraPointCenter>();
-        padRotation = FindAnyObjectByType<TouchPadRotation>();
+        SetManaPointInt();
         animator = GetComponentInChildren<Animator>();
         CardPlayer.Instance.AddCard(0);
         CardPlayer.Instance.AddCard(1);
@@ -48,17 +55,30 @@ public class PlayerCharacter : BaseCharacter
     {
         base.Update();
 
-        if (camPointCenter.IsLock)
+        // 모델 회전
+        if (PlayerControl.Instance.LockonCharacter !=null)
         {
-            
-            navTarget.LookAt(camPointCenter.LockonTransformm);
-            navTarget.localEulerAngles = new Vector3(0, navTarget.localEulerAngles.y, 0);
+            playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
+            playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
         }
         else
         {
-            navTarget.localEulerAngles = Vector3.zero;
+            playerModelTransform.localEulerAngles = Vector3.zero;
         }
 
+        // 피격시간 딜레이
+        if (isHit)
+        {
+            tempTime += Time.deltaTime;
+            if (tempTime > noDamageTime)
+            {
+                tempTime = 0;
+                isHit = false;
+            }
+            
+        }
+
+        // 상태
         switch (nowState)
         {
             case PlayerState.Idle:
@@ -67,6 +87,8 @@ public class PlayerCharacter : BaseCharacter
                 break;
             
         }
+
+
     }
     
 
@@ -91,6 +113,9 @@ public class PlayerCharacter : BaseCharacter
 
     public override void Hitted(float damage)
     {
+        if (isHit)
+            return;
+        isHit = true;
         healthPoint -= damage;
         if (healthPoint > 0)
             animator.SetTrigger("Hit");
@@ -127,6 +152,11 @@ public class PlayerCharacter : BaseCharacter
             healthPoint = maxHealthPoint;
     }
     
+    public int SetManaPointInt()
+    {
+        manaPointInt = Convert.ToInt32(manaPoint);
+        return manaPointInt;
+    }
 
 
     

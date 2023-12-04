@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -13,22 +15,33 @@ public enum BattleState
 
 public class RoomEnemyControl : MonoBehaviour
 {
-
-    int count;
-    
+    public static int countEnemies=0;
     [SerializeField] Transform[] enemySpawner;
     [SerializeField] GameObject[] battleDoors;
     [SerializeField] Transform enemyGroupTransform;
 
-    List<int> enemyIdxList = new List<int>();
+    Queue<Enemy> enemyIdxList = new Queue<Enemy>();
+    Queue<Transform> spawnerQueue = new Queue<Transform>();
     BattleState nowState=BattleState.Ready;
 
 
     
     void Start()
     {
-        enemyIdxList.Add(0);
-        count = enemySpawner.Length;
+        countEnemies = Random.Range(1, enemySpawner.Length+1);
+
+        for(int i = 0; i < countEnemies; i++)
+        {
+            enemyIdxList.Enqueue(
+                EnemysAsset.Instance.GetEnemy(Random.Range(0,EnemysAsset.Instance.GetEnemysCount))
+                );
+        }
+
+        foreach(var temp in enemySpawner)
+        {
+            spawnerQueue.Enqueue(temp);
+        }
+
     }
 
     // Update is called once per frame
@@ -40,13 +53,14 @@ public class RoomEnemyControl : MonoBehaviour
 
                 break;
             case BattleState.Battle:
-                if (count <= 0)
+                if (countEnemies <= 0)
                 {
                     OpenDoor();
                 }
 
                 break;
             case BattleState.Clear:
+                Destroy(this);
                 break;
         }
     }
@@ -56,14 +70,15 @@ public class RoomEnemyControl : MonoBehaviour
         if (nowState != BattleState.Ready)
             return;
         nowState = BattleState.Battle;
+        
 
         foreach(var temp in battleDoors)
         {
             if(temp!=null)
                 temp.SetActive(true);
         }
-
-        AssetAddressLoad.Instance.LoadEnemys(enemyIdxList, enemySpawner, enemyGroupTransform);
+        
+        AssetAddressLoad.Instance.LoadEnemys(enemyIdxList, spawnerQueue, enemyGroupTransform);
     }
 
     public void OpenDoor()

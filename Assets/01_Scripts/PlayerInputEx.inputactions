@@ -42,22 +42,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LockOn",
+                    "name": "LockOnTarget",
                     "type": "Value",
-                    "id": "fc18ced1-842b-4374-8a01-ff34048e8adb",
-                    "expectedControlType": "",
+                    "id": "6783892c-4c25-4390-8374-55f4fba81305",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LockOnTarget",
-                    "type": "Button",
-                    "id": "6783892c-4c25-4390-8374-55f4fba81305",
-                    "expectedControlType": "Button",
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "e06de5a5-f382-4482-973b-c346cce84d91",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -107,23 +107,45 @@
                 },
                 {
                     "name": "",
-                    "id": "a12e22b0-54ed-4acc-84f6-f1a9b0a865c9",
-                    "path": "<Gamepad>/rightTrigger",
+                    "id": "cac1fa99-20df-4e36-953c-d530ff011301",
+                    "path": "<Touchscreen>/touch0/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Android",
-                    "action": "LockOn",
+                    "action": "LockOnTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "cac1fa99-20df-4e36-953c-d530ff011301",
-                    "path": "<Touchscreen>/Press",
+                    "id": "fe3eec5d-55cc-4fbf-b978-34f892d3e8a8",
+                    "path": "<Touchscreen>/touch1/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "Android",
                     "action": "LockOnTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a9872a1-b1fc-44ca-bb02-ef51b72a33e4",
+                    "path": "<Touchscreen>/touch0/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb1ad48d-be0c-4a88-928d-6898c7d2ffa9",
+                    "path": "<Touchscreen>/touch1/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

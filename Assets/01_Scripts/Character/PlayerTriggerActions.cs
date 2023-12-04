@@ -4,27 +4,21 @@ using UnityEngine;
 
 public class PlayerTriggerActions : MonoBehaviour
 {
-    PlayerCharacter character;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        character = GetComponentInParent<PlayerCharacter>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    bool isHit = false;
+    public bool IsHit=>isHit;
 
     public void UseCardMagicL()
     {
-        CardPlayer.Instance.UseCard(true, character.ManaPoint);
+        CardPlayer.Instance.UseCard(true, PlayerCharacter.Instance.ManaPoint);
     }
 
     public void UseCardMagicR()
     {
-        CardPlayer.Instance.UseCard(false, character.ManaPoint);
+        CardPlayer.Instance.UseCard(false, PlayerCharacter.Instance.ManaPoint);
+    }
+
+    public void IsHitting(int val)
+    {
+        isHit = val > 0 ? true : false;
     }
 }

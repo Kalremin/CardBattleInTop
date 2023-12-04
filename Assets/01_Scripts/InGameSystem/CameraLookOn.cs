@@ -5,30 +5,20 @@ using UnityEngine.TextCore.Text;
 
 public class CameraLookOn : MonoBehaviour
 {
-    CameraPointCenter camPointCenter;
-    Transform playerLookTransform;
     Vector3 tempLookonVec;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        camPointCenter = GetComponentInParent<CameraPointCenter>();
-        playerLookTransform = transform.parent;
-        
-    }
+    [SerializeField] Transform lookTarget;
+    
 
     // Update is called once per frame
     void Update()
     {
-        if (camPointCenter.IsLock)
+        if (PlayerControl.Instance.LockonCharacter !=null)
         {
-            if (camPointCenter.LockonTransformm == null)
-                return;
-            tempLookonVec = (playerLookTransform.position + camPointCenter.LockonTransformm.position) / 2;
+            tempLookonVec = (lookTarget.position + PlayerControl.Instance.LockonCharacter.transform.position) / 2;
             transform.LookAt(tempLookonVec);
         }
         else
-            transform.LookAt(playerLookTransform);
+            transform.LookAt(lookTarget);
     }
 
 

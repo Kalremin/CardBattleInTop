@@ -11,18 +11,20 @@ public class EnemyCharacter : BaseCharacter
         Idle,
         Move,
         Attack,
-        Die
+        Die,
+        None
     }
 
     EnemyState nowState;
 
     
     NavMeshAgent navAgent;
-    PlayerCharacter playerCharacter;
+    
 
     [SerializeField] protected float detectDistance = 50;
     [SerializeField] protected float attackRange = 1;
     [SerializeField] protected Transform modelTransform;
+    [SerializeField] EnemyColliderForEvent enemyAniEvent;
 
     public GameObject lockOnGround;
     
@@ -30,10 +32,10 @@ public class EnemyCharacter : BaseCharacter
 
     protected override void Awake()
     {
-        base.Awake();
+        
         animator = GetComponentInChildren<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        playerCharacter = FindFirstObjectByType<PlayerCharacter>();
+        
         ChangeState(EnemyState.Move);
     }
     // Start is called before the first frame update
@@ -53,27 +55,38 @@ public class EnemyCharacter : BaseCharacter
         switch (nowState)
         {
             case EnemyState.Idle:
-                if (playerCharacter.IsAlive && Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < detectDistance)
+                if (PlayerCharacter.Instance.IsAlive && Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) < detectDistance)
                     ChangeState(EnemyState.Move);
                     break;
             case EnemyState.Move:
-                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) < attackRange)
+                if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) < attackRange)
                     ChangeState(EnemyState.Attack);
 
-                navAgent.destination = playerCharacter.transform.position;
-
+                navAgent.destination = PlayerCharacter.Instance.transform.position;
+                
 
                 break;
             case EnemyState.Attack:
-                if (!playerCharacter.IsAlive)
+                if (!PlayerCharacter.Instance.IsAlive)
                     ChangeState(EnemyState.Idle);
-                if (Vector3.Distance(transform.position, playerCharacter.NavTargetVec) > attackRange)
+                if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) > attackRange && !enemyAniEvent.IsAttack)
+                {
                     ChangeState(EnemyState.Move);
+                }
+                //navAgent.destination = PlayerCharacter.Instance.transform.position;
+                transform.LookAt(PlayerCharacter.Instance.transform);
+                transform.eulerAngles = Vector3.up * transform.eulerAngles.y;
 
-
-                
-                
-
+                break;
+            case EnemyState.Die:
+                if (!enemyAniEvent.IsAlive)
+                {
+                    GetComponent<Collider>().enabled = false;
+                    GetComponent<NavMeshAgent>().enabled = false;
+                    RoomEnemyControl.countEnemies--;
+                    ChangeState(EnemyState.None);
+                    Destroy(gameObject, 1f);
+                }
                 break;
         }
     }
@@ -118,8 +131,22 @@ public class EnemyCharacter : BaseCharacter
 
     public override void Hitted(float damage)
     {
+        if (nowState == EnemyState.Die)
+            return;
+
         healthPoint -= damage;
-        animator.SetTrigger("Hit");
+        if (healthPoint < 0)
+        {
+            if (animator == null)
+                animator = GetComponentInChildren<Animator>();
+            
+            animator.SetTrigger("Die");
+            ChangeState(EnemyState.Die);
+        }
+
+        else
+            animator.SetTrigger("Hit");
+        
     }
 
     public override void Idle()

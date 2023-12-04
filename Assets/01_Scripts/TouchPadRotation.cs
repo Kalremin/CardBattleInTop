@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,IPointerUpHandler
+public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler
 {
     [SerializeField]
     float multiplyRot=1;
-    Transform playerTransform;
     Camera playerCam;
 
     Vector2 touchPosition;
     Vector2 nowPos;
-    bool isTouching = false;
     EnemyCharacter lockonCharacter;
 
     public EnemyCharacter LockOnCharacter => lockonCharacter;
     private void Start()
     {
         playerCam = FindAnyObjectByType<CameraLookOn>().GetComponent<Camera>();
-        playerTransform = FindAnyObjectByType<PlayerCharacter>().transform;
+        
         
     }
 
@@ -32,29 +30,30 @@ public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,
     {
         //isTouching = true;
         //SetTouchPosition(eventData);
-        if (lockonCharacter != null)
-        {
-            lockonCharacter.lockOnGround.SetActive(false);
-        }
 
-        Ray ray = playerCam.ScreenPointToRay(eventData.position);
-        if (Physics.Raycast(ray,out RaycastHit hitInfo))
-        {
-            if(hitInfo.transform.TryGetComponent(out EnemyCharacter eCharacter))
-            {
-                lockonCharacter = eCharacter;
-                lockonCharacter.lockOnGround.SetActive(true);
-            }
-        }
+        //if (lockonCharacter != null)
+        //{
+        //    lockonCharacter.lockOnGround.SetActive(false);
+        //}
+
+        //Ray ray = playerCam.ScreenPointToRay(eventData.position);
+        //if (Physics.Raycast(ray,out RaycastHit hitInfo))
+        //{
+        //    if(hitInfo.transform.TryGetComponent(out EnemyCharacter eCharacter))
+        //    {
+        //        lockonCharacter = eCharacter;
+        //        lockonCharacter.lockOnGround.SetActive(true);
+        //    }
+        //}
 
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        playerTransform.rotation =
-            Quaternion.Euler(playerTransform.eulerAngles.x,
-            playerTransform.eulerAngles.y + eventData.delta.x * multiplyRot,
-            playerTransform.eulerAngles.z);
+        PlayerCharacter.Instance.transform.rotation =
+            Quaternion.Euler(PlayerCharacter.Instance.transform.eulerAngles.x,
+            PlayerCharacter.Instance.transform.eulerAngles.y + eventData.delta.x * multiplyRot,
+            PlayerCharacter.Instance.transform.eulerAngles.z);
 
 
         //if (isTouching)
@@ -69,14 +68,5 @@ public class TouchPadRotation : MonoBehaviour, IPointerDownHandler,IDragHandler,
         //}
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isTouching = false;
-    }
-
-    private void SetTouchPosition(PointerEventData eventData)
-    {
-        touchPosition = eventData.position;
-    }
 
 }

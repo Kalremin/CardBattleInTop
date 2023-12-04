@@ -19,8 +19,11 @@ public class AssetAddressLoad : MonoBehaviour
     AsyncOperationHandle<GameObject> prefabEnemyHandle;
 
     AsyncOperationHandle<GameObject> prefabUIHandle;
+    AsyncOperationHandle<Material> materialHandle;
 
     Dictionary<string, AsyncOperationHandle<GameObject>> tempDic = new Dictionary<string, AsyncOperationHandle<GameObject>>();
+
+    int temp;
     private void Start()
     {
         if (instance == null)
@@ -72,20 +75,45 @@ public class AssetAddressLoad : MonoBehaviour
         }
     }
 
-    public async void LoadEnemys(List<int> enemyIdxList, Transform[] spawnTransform, Transform enemyParent)
+    public async void LoadEnemys(Queue<Enemy> enemyIdxList, Queue<Transform> spawnTransform, Transform enemyParent)
     {
-        for(int i = 0; i < spawnTransform.Length; i++)
+        while (enemyIdxList.Count > 0)
         {
-            prefabEnemyHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEnemy + enemyIdxList[Random.Range(0,enemyIdxList.Count)]);
-            await prefabEnemyHandle.Task;
-
-            if (prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
+            Enemy tempEnemy = enemyIdxList.Dequeue();
+            if (!tempDic.ContainsKey(tempEnemy.prefabRef.AssetGUID))
             {
-                Instantiate(prefabEnemyHandle.Result, spawnTransform[i].position, Quaternion.identity).transform.SetParent(enemyParent);
-
-                Addressables.Release(prefabEnemyHandle);
+                tempDic.Add(tempEnemy.prefabRef.AssetGUID, tempEnemy.prefabRef.LoadAssetAsync<GameObject>());
+                prefabEnemyHandle = tempDic[tempEnemy.prefabRef.AssetGUID];
+                await prefabEnemyHandle.Task;
             }
+            else
+            {
+                prefabEnemyHandle = tempDic[tempEnemy.prefabRef.AssetGUID];
+            }
+
+            if(prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Instantiate(prefabEnemyHandle.Result, spawnTransform.Dequeue().position, Quaternion.identity).transform.SetParent(enemyParent);
+            }
+            
+
         }
+
+
+        //for(int i = 0; i < spawnTransform.Length; i++)
+        //{
+        //    temp = Random.Range(0,enemyIdxList.Count);
+        //    prefabEnemyHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEnemy + enemyIdxList[Random.Range(0,temp)]);
+        //    await prefabEnemyHandle.Task;
+
+        //    if (prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
+        //    {
+        //        Instantiate(prefabEnemyHandle.Result, spawnTransform[i].position, Quaternion.identity).transform.SetParent(enemyParent);
+
+
+        //        Addressables.Release(prefabEnemyHandle);
+        //    }
+        //}
     }
 
     public async void LoadCardUI(int magicSpriteIdx, Transform spawnTransform)
@@ -203,6 +231,7 @@ public class AssetAddressLoad : MonoBehaviour
     //{
     //    Addressables.Release(prefabHandle);
     //}
+
 
     [ContextMenu("PrefabUIRelease")]
     public void PrefabRelease()

@@ -1,18 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BossColliderForEvent : MonoBehaviour
 {
     [SerializeField] float damage = 3;
-    List<PlayerCharacter> playerList = new List<PlayerCharacter>();
+    
+    bool isPlayerin = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out PlayerCharacter player))
         {
-            playerList.Add(player);
+            isPlayerin = true;
         }
     }
 
@@ -20,15 +22,14 @@ public class BossColliderForEvent : MonoBehaviour
     {
         if(other.TryGetComponent(out PlayerCharacter player))
         {
-            playerList.Remove(player);
+            isPlayerin = false;
         }
     }
 
     public void HitPlayer()
     {
-        foreach(var temp in playerList)
-        {
-            temp.Hitted(damage);
-        }
+        if (isPlayerin)
+            PlayerCharacter.Instance.Hitted(damage);
+
     }
 }

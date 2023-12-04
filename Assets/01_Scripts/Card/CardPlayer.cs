@@ -29,7 +29,6 @@ public class CardPlayer : MonoBehaviour
     Queue<int> tempIdxQueue = new Queue<int>(); // 임시 저장
 
     CardListUI cardListUI;
-    PlayerCharacter character;
 
     [SerializeField]
     Transform magicPointTransform;
@@ -45,7 +44,6 @@ public class CardPlayer : MonoBehaviour
         instance = this;
 
         cardListUI = FindAnyObjectByType<CardListUI>();
-        character = FindAnyObjectByType<PlayerCharacter>();
     }
     void Start()
     {
@@ -191,7 +189,7 @@ public class CardPlayer : MonoBehaviour
         {
             if (curManaPoint >= CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint)
             {
-                character.CostManaPoint(CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint);
+                PlayerCharacter.Instance.CostManaPoint(CardsAsset.Instance.GetMagic(cardLIdx).costManaPoint);
 
                 if(CardsAsset.Instance.GetMagic(cardLIdx).isArea)
                     ObjectPooling.Instance.InstantiateEffect(cardLIdx, magicAreaEffectTransform);
@@ -210,7 +208,7 @@ public class CardPlayer : MonoBehaviour
         {
             if (curManaPoint >= CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint)
             {
-                character.CostManaPoint(CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint);
+                PlayerCharacter.Instance.CostManaPoint(CardsAsset.Instance.GetMagic(cardRIdx).costManaPoint);
 
                 if (CardsAsset.Instance.GetMagic(cardRIdx).isArea)
                     ObjectPooling.Instance.InstantiateEffect(cardRIdx, magicAreaEffectTransform);
