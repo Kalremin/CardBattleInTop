@@ -1385,6 +1385,7 @@ GameObject:
   - component: {fileID: 387221739}
   - component: {fileID: 387221738}
   - component: {fileID: 387221740}
+  - component: {fileID: 387221741}
   m_Layer: 5
   m_Name: Joystick
   m_TagString: Untagged
@@ -1407,9 +1408,9 @@ RectTransform:
   - {fileID: 342365743}
   m_Father: {fileID: 397916452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 110, y: 110}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -40, y: -40}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &387221738
@@ -1457,7 +1458,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387221736}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
   m_Name: 
@@ -1485,6 +1486,19 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+--- !u!114 &387221741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387221736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d19351b06b7ab429efba405402c27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/leftStick
 --- !u!1 &397916451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,9 +1533,9 @@ RectTransform:
   - {fileID: 1600620298}
   m_Father: {fileID: 642697940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150, y: 150}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -250, y: -20}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &397916453
@@ -1854,6 +1868,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1f0bf39a4dd794f8a78435472e9d7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &434796064 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: bed7a092d53e7c748bd65db98cebf9d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 867205543}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &474850136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,7 +3646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &869967965
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3709,8 +3729,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.72, y: 1.26, z: 2.0776725}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4186,7 +4206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1050910726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4271,7 +4291,7 @@ Transform:
   m_GameObject: {fileID: 1066454566}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 3}
+  m_LocalPosition: {x: 0, y: -1, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5027,7 +5047,8 @@ MonoBehaviour:
   maxManaPoint: 3
   healthRegen: 0
   manaRegen: 1
-  moveSpeed: 5
+  moveSpeed: 10
+  animator: {fileID: 434796064}
   playerModelTransform: {fileID: 132446682}
   noDamageTime: 3
 --- !u!114 &1298725274

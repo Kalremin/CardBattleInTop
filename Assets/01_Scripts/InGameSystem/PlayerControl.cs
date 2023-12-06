@@ -125,23 +125,40 @@ public class PlayerControl : MonoBehaviour
 
     private void InteractAction_performed(InputAction.CallbackContext obj)
     {
+        if (triggerActions.IsHit)
+            return;
+        if (lockonCharacter != null)
+        {
+            lockonCharacter.lockOnGround.SetActive(false);
+            lockonCharacter = null;
+        }
+        triggerActions.SetFalseHit();
         playerInteract.ActivateItem();
     }
 
     private void AttackRightAction_performed(InputAction.CallbackContext obj)
     {
+        if (triggerActions.IsHit)
+            return;
+        triggerActions.SetFalseHit();
         if (PlayerCharacter.Instance.IsAlive)
             PlayerCharacter.Instance.AttackR();
     }
 
     private void AttackLeftAction_performed(InputAction.CallbackContext obj)
     {
+        if (triggerActions.IsHit)
+            return;
+        triggerActions.SetFalseHit();
         if (PlayerCharacter.Instance.IsAlive)
             PlayerCharacter.Instance.AttackL();
     }
 
     private void MoveAction_canceled(InputAction.CallbackContext obj)
     {
+
+        
+
         if (PlayerCharacter.Instance.IsAlive)
         {
             dir = Vector2.zero;
@@ -151,6 +168,9 @@ public class PlayerControl : MonoBehaviour
 
     private void MoveAction_performed(InputAction.CallbackContext obj)
     {
+        if (triggerActions.IsHit)
+            return;
+        triggerActions.SetFalseHit();
         if (PlayerCharacter.Instance.IsAlive)
         {
 

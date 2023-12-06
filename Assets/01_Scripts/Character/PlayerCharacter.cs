@@ -85,6 +85,9 @@ public class PlayerCharacter : BaseCharacter
                 break;
             case PlayerState.Move:
                 break;
+            case PlayerState.Die:
+
+                break;
             
         }
 

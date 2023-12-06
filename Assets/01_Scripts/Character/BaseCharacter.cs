@@ -19,7 +19,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
     protected delegate void UpdateMethod();
     protected UpdateMethod updateMethod;
-    protected Animator animator;
+    [SerializeField] protected Animator animator;
 
     public bool IsAlive => isAlive;
     public float HealthPoint => healthPoint;
@@ -35,7 +35,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
+        
     }
 
     protected virtual void Update()

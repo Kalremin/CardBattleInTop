@@ -13,6 +13,12 @@ public class BossSpawner : MonoBehaviour
     [SerializeField]
     Transform spawnerTransform;
 
+    [SerializeField]
+    GameObject[] doors;
+
+    BossCharacter character;
+
+    bool isTrigger = false;
     AsyncOperationHandle<GameObject> tempHandle;
 
     // Start is called before the first frame update
@@ -24,10 +30,43 @@ public class BossSpawner : MonoBehaviour
 
         if(tempHandle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
         {
-            Instantiate(tempHandle.Result, spawnerTransform.position, spawnerTransform.rotation);
+            character = Instantiate(tempHandle.Result, spawnerTransform.position, spawnerTransform.rotation).GetComponent<BossCharacter>();
 
             
         }
     }
+
+    private void Update()
+    {
+        if(character != null && !character.IsAlive)
+        {
+            Addressables.Release(tempHandle);
+            OpenDoor();
+            character = null;
+        }
+    }
+
+    public void CloseDoor()
+    {
+        if (isTrigger)
+            return;
+
+        foreach(var temp in doors)
+        {
+            temp.SetActive(true);
+        }
+        isTrigger = true;
+    }
+
+    public void OpenDoor()
+    {
+        foreach (var temp in doors)
+        {
+            temp.SetActive(false);
+        }
+    }
+
+
+
 
 }

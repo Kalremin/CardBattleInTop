@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8787d3555c74ef546a09099e2a77224f, type: 2}
+  - {fileID: 2100000, guid: 1912b5c91af4a804d8f9f08d66313596, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   healthRegen: 0
   manaRegen: 0
   moveSpeed: 1
+  animator: {fileID: 5638247153515078362}
   detectDistance: 50
   attackRange: 1.5
   modelTransform: {fileID: 0}
@@ -367,3 +368,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!95 &5638247153515078362 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 10e04d4c0252dfe4982ad921349078c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2257858398418575179}
+  m_PrefabAsset: {fileID: 0}

@@ -33,7 +33,7 @@ public class EnemyCharacter : BaseCharacter
     protected override void Awake()
     {
         
-        animator = GetComponentInChildren<Animator>();
+        
         navAgent = GetComponent<NavMeshAgent>();
         
         ChangeState(EnemyState.Move);
@@ -81,12 +81,11 @@ public class EnemyCharacter : BaseCharacter
             case EnemyState.Die:
                 if (!enemyAniEvent.IsAlive)
                 {
-                    GetComponent<Collider>().enabled = false;
-                    GetComponent<NavMeshAgent>().enabled = false;
-                    RoomEnemyControl.countEnemies--;
                     ChangeState(EnemyState.None);
-                    Destroy(gameObject, 1f);
                 }
+                break;
+            case EnemyState.None:
+                Destroy(gameObject, 1f);
                 break;
         }
     }
@@ -111,7 +110,15 @@ public class EnemyCharacter : BaseCharacter
                 animator.SetBool("Attack", true);
                 animator.SetBool("Move", false);
                 
-                break; ;
+                break;
+            case EnemyState.Die:
+                RoomEnemyControl.countEnemies--;
+                isAlive = false;
+                navAgent.isStopped = true;
+                GetComponent<Collider>().enabled = false;
+                GetComponent<NavMeshAgent>().enabled = false;
+                animator.SetTrigger("Die");
+                break;
         }
 
         nowState = state;
@@ -137,10 +144,8 @@ public class EnemyCharacter : BaseCharacter
         healthPoint -= damage;
         if (healthPoint < 0)
         {
-            if (animator == null)
-                animator = GetComponentInChildren<Animator>();
             
-            animator.SetTrigger("Die");
+            
             ChangeState(EnemyState.Die);
         }
 

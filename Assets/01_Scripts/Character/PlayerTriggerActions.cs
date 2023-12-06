@@ -7,6 +7,7 @@ public class PlayerTriggerActions : MonoBehaviour
     bool isHit = false;
     public bool IsHit=>isHit;
 
+    public void SetFalseHit() => isHit = false;
     public void UseCardMagicL()
     {
         CardPlayer.Instance.UseCard(true, PlayerCharacter.Instance.ManaPoint);

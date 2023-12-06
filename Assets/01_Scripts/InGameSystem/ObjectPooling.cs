@@ -8,12 +8,7 @@ public class ObjectPooling : MonoBehaviour
     static ObjectPooling instance;
     public static ObjectPooling Instance => instance;
 
-    Dictionary<string, Queue<GameObject>[]> poolingDic;
     Dictionary<int, Queue<GameObject>> effectPoolingDic;
-
-    //temp
-    Queue<GameObject>[] enemyQueue;
-    Queue<GameObject>[] effectQueue;
 
 
     private void Awake()
@@ -24,7 +19,6 @@ public class ObjectPooling : MonoBehaviour
 
     private void Start()
     {
-        poolingDic = new Dictionary<string, Queue<GameObject>[]>();
         effectPoolingDic = new Dictionary<int, Queue<GameObject>>();
     }
 
