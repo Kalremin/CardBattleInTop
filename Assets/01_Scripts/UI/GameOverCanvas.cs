@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameOverCanvas : MonoBehaviour
@@ -7,6 +8,9 @@ public class GameOverCanvas : MonoBehaviour
     PlayerCharacter character;
     [SerializeField]
     GameObject gameoverImage;
+
+    [SerializeField]
+    TextMeshProUGUI floorText;
 
     float tempTime = 0, delayTime = 5f;
     private void Start()
@@ -26,6 +30,11 @@ public class GameOverCanvas : MonoBehaviour
 
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        floorText.text = FloorCountScr.Instance.Floor.ToString();
     }
 
 
