@@ -217,6 +217,7 @@ MonoBehaviour:
   attackRange: 2
   modelTransform: {fileID: 0}
   enemyAniEvent: {fileID: 0}
+  bossAniEvent: {fileID: 7346513850105327883}
   lockOnGround: {fileID: 3075604011839898270}
 --- !u!1001 &2969260219655674146
 PrefabInstance:

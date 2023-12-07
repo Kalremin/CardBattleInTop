@@ -34,6 +34,9 @@ public class BossSpawner : MonoBehaviour
 
             
         }
+
+        
+
     }
 
     private void Update()
@@ -53,7 +56,8 @@ public class BossSpawner : MonoBehaviour
 
         foreach(var temp in doors)
         {
-            temp.SetActive(true);
+            if(temp!=null)
+                temp.gameObject.SetActive(true);
         }
         isTrigger = true;
     }
@@ -62,7 +66,8 @@ public class BossSpawner : MonoBehaviour
     {
         foreach (var temp in doors)
         {
-            temp.SetActive(false);
+            if (temp != null)
+                temp.gameObject.SetActive(false);
         }
     }
 

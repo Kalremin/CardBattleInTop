@@ -43,11 +43,37 @@ public class PlayerCharacter : BaseCharacter
     private void Start()
     {
         //camPointCenter = GetComponentInChildren<CameraPointCenter>();
+        if (PlayerStatSetting.Instance.IsSave)
+        {
+            maxHealthPoint = PlayerStatSetting.Instance.maxHealth;
+            maxManaPoint = PlayerStatSetting.Instance.maxMana;
+
+            healthPoint = PlayerStatSetting.Instance.health;
+            manaPoint = PlayerStatSetting.Instance.mana;
+
+            healthRegen = PlayerStatSetting.Instance.healthRegen;
+            manaRegen = PlayerStatSetting.Instance.manaRegen;
+
+            moveSpeed = PlayerStatSetting.Instance.moveSpeed;
+
+            foreach(var card in PlayerStatSetting.Instance.playerCardsDeck)
+            {
+                CardPlayer.Instance.AddCard(card);
+            }
+
+        }
+        else
+        {
+
+            CardPlayer.Instance.AddCard(0);
+            CardPlayer.Instance.AddCard(1);
+            CardPlayer.Instance.AddCard(2);
+
+        }
+
+
         SetManaPointInt();
         animator = GetComponentInChildren<Animator>();
-        CardPlayer.Instance.AddCard(0);
-        CardPlayer.Instance.AddCard(1);
-        CardPlayer.Instance.AddCard(2);
         CardPlayer.Instance.ChangeState(DeckState.Ready);
     }
 

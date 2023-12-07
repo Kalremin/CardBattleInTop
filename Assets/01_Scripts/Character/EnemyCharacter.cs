@@ -24,7 +24,8 @@ public class EnemyCharacter : BaseCharacter
     [SerializeField] protected float detectDistance = 50;
     [SerializeField] protected float attackRange = 1;
     [SerializeField] protected Transform modelTransform;
-    [SerializeField] EnemyColliderForEvent enemyAniEvent;
+    [SerializeField] protected EnemyColliderForEvent enemyAniEvent;
+    [SerializeField] protected BossColliderForEvent bossAniEvent;
 
     public GameObject lockOnGround;
     
@@ -69,10 +70,21 @@ public class EnemyCharacter : BaseCharacter
             case EnemyState.Attack:
                 if (!PlayerCharacter.Instance.IsAlive)
                     ChangeState(EnemyState.Idle);
-                if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) > attackRange && !enemyAniEvent.IsAttack)
+
+                if(enemyAniEvent != null)
+                    if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) > attackRange && !enemyAniEvent.IsAttack)
+                    {
+                        ChangeState(EnemyState.Move);
+                    }
+
+                if(bossAniEvent != null)
                 {
-                    ChangeState(EnemyState.Move);
+                    if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) > attackRange && !bossAniEvent.IsPlayerIn)
+                    {
+                        ChangeState(EnemyState.Move);
+                    }
                 }
+
                 //navAgent.destination = PlayerCharacter.Instance.transform.position;
                 transform.LookAt(PlayerCharacter.Instance.transform);
                 transform.eulerAngles = Vector3.up * transform.eulerAngles.y;

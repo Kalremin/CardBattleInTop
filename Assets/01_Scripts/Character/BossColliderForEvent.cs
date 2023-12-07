@@ -32,4 +32,6 @@ public class BossColliderForEvent : MonoBehaviour
             PlayerCharacter.Instance.Hitted(damage);
 
     }
+
+    public bool IsPlayerIn => isPlayerin;
 }

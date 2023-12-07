@@ -32,7 +32,9 @@ public class GameOverCanvas : MonoBehaviour
     public void RestartBtn()
     {
         FloorCountScr.Instance.ResetFloor();
+        PlayerStatSetting.Instance.ResetStat();
         SceneLoad.Instance.LoadScene(2);
+
     }
 
     public void ExitBtn()

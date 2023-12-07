@@ -39,6 +39,8 @@ public class CardPlayer : MonoBehaviour
     public int CardLIdx => cardLIdx;
     public int CardRIdx => cardRIdx;
 
+    public List<MagicCard> PlayerCardsDeck=>playerCardsDeck;
+
     private void Awake()
     {
         instance = this;
@@ -177,6 +179,11 @@ public class CardPlayer : MonoBehaviour
         playerCardsDeck.Add(CardsAsset.Instance.GetMagic(cardId));
 
 
+    }
+
+    public void AddCard(MagicCard card)
+    {
+        playerCardsDeck.Add(card);
     }
 
 

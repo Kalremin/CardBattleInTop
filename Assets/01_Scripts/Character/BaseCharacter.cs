@@ -57,6 +57,7 @@ public abstract class BaseCharacter : MonoBehaviour
         }
     }
 
+
     public abstract void Move();
 
     public abstract void AttackL();
