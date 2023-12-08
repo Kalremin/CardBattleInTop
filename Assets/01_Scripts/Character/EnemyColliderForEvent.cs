@@ -8,9 +8,11 @@ public class EnemyColliderForEvent : MonoBehaviour
     // Start is called before the first frame update
     bool isAttack = false;
     bool isAlive = true;
+    bool isHit = false;
 
     public bool IsAlive => isAlive;
     public bool IsAttack=>isAttack;
+    public bool IsHit => isHit;
     void Start()
     {
         attackColliders = GetComponentsInChildren<Collider>();
@@ -35,4 +37,8 @@ public class EnemyColliderForEvent : MonoBehaviour
         isAlive = false;
     }
 
+    public void IsHitting(int val)
+    {
+        isHit = val > 0 ? true : false;
+    }
 }

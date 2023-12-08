@@ -60,6 +60,13 @@ public class EnemyCharacter : BaseCharacter
                     ChangeState(EnemyState.Move);
                     break;
             case EnemyState.Move:
+                if(enemyAniEvent != null && enemyAniEvent.IsHit)
+                {
+                    navAgent.isStopped = true;
+                    return;
+                }
+
+                navAgent.isStopped = false;
                 if (Vector3.Distance(transform.position, PlayerCharacter.Instance.playerModelPos) < attackRange)
                     ChangeState(EnemyState.Attack);
 
