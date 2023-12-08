@@ -26,16 +26,13 @@ public class GameOverCanvas : MonoBehaviour
             if (tempTime >= delayTime)
             {
                 tempTime = 0;
+                floorText.text = FloorCountScr.Instance.Floor.ToString();
                 gameoverImage.SetActive(true);
 
             }
         }
     }
 
-    private void OnEnable()
-    {
-        floorText.text = FloorCountScr.Instance.Floor.ToString();
-    }
 
 
     public void RestartBtn()

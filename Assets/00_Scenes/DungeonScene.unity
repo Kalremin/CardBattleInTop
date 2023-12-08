@@ -4473,8 +4473,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298725263}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.67, y: 6.47, z: 0.54}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4484,7 +4484,7 @@ Transform:
   - {fileID: 2114956362}
   - {fileID: 2092017287}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!54 &1298725271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4548,8 +4548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAlive: 1
-  healthPoint: 100
-  maxHealthPoint: 100
+  healthPoint: 20
+  maxHealthPoint: 20
   manaPoint: 3
   maxManaPoint: 3
   healthRegen: 0
@@ -4649,6 +4649,14 @@ MonoBehaviour:
     - m_Name: 
       m_Id: 51b50373-3f9b-4918-bc31-ca230fcdaed1
       m_Path: <Touchscreen>/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Rotate
+      m_Flags: 0
+    - m_Name: 
+      m_Id: e2c49573-248e-48e1-bad6-425c736bc188
+      m_Path: <Touchscreen>/touch1/delta
       m_Interactions: 
       m_Processors: 
       m_Groups: 

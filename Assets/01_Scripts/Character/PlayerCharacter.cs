@@ -84,8 +84,18 @@ public class PlayerCharacter : BaseCharacter
         // ¸ðµ¨ È¸Àü
         if (PlayerControl.Instance.LockonCharacter !=null)
         {
-            playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
-            playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+            if (!PlayerControl.Instance.LockonCharacter.IsAlive)
+            {
+                PlayerControl.Instance.ResetTarget();
+
+            }
+            else
+            {
+                playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
+                playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+
+            }
+
         }
         else
         {

@@ -28,9 +28,9 @@ public class RoomEnemyControl : MonoBehaviour
     
     void Start()
     {
-        countEnemies = Random.Range(1, enemySpawner.Length+1);
-
-        for(int i = 0; i < countEnemies; i++)
+        
+        
+        for(int i = 0; i < Random.Range(1, enemySpawner.Length + 1); i++)
         {
             enemyIdxList.Enqueue(
                 EnemysAsset.Instance.GetEnemy(Random.Range(0,EnemysAsset.Instance.GetEnemysCount))
@@ -70,9 +70,12 @@ public class RoomEnemyControl : MonoBehaviour
         if (nowState != BattleState.Ready)
             return;
         nowState = BattleState.Battle;
+
+        countEnemies = enemyIdxList.Count;
+
         
 
-        foreach(var temp in battleDoors)
+        foreach (var temp in battleDoors)
         {
             if(temp!=null)
                 temp.SetActive(true);

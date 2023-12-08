@@ -33,6 +33,8 @@ public class PlayerControl : MonoBehaviour
     
     public EnemyCharacter LockonCharacter { get { return lockonCharacter; } }
 
+    public void ResetTarget() { lockonCharacter = null; }
+
     void Awake()
     {
         instance = this;

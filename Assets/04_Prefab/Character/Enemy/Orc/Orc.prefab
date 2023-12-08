@@ -188,7 +188,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   manaRegen: 0
   moveSpeed: 5
   animator: {fileID: 5019133935987052006}
-  detectDistance: 50
+  detectDistance: 10
   attackRange: 2
   modelTransform: {fileID: 0}
   enemyAniEvent: {fileID: 0}

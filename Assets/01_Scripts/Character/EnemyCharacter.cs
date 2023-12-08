@@ -15,7 +15,7 @@ public class EnemyCharacter : BaseCharacter
         None
     }
 
-    EnemyState nowState;
+    protected EnemyState nowState;
 
     
     NavMeshAgent navAgent;
@@ -91,7 +91,7 @@ public class EnemyCharacter : BaseCharacter
 
                 break;
             case EnemyState.Die:
-                if (!enemyAniEvent.IsAlive)
+                if (enemyAniEvent != null &&!enemyAniEvent.IsAlive)
                 {
                     ChangeState(EnemyState.None);
                 }
