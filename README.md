@@ -1,4 +1,4 @@
-# CardBattleInTop
+# LimitlesDun
 조건이 허용되는 한 자유롭게 마밥을 사용할 수 있는 로그라이크 게임입니다.
 
 * 개발기간 : 1개월 1주<br/>
