@@ -6,3 +6,8 @@
 * 사용언어 : C#<br/>
 * 대상기기 : 모바일<br/>
 
+# 영상 및 설명문서
+영상: https://youtu.be/nbFXrnoJHdE
+
+설명문서: 
+
