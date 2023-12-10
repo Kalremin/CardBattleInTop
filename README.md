@@ -9,5 +9,5 @@
 # 영상 및 설명문서
 영상: https://youtu.be/nbFXrnoJHdE
 
-설명문서: 
+설명문서: https://docs.google.com/document/d/1Ngo0uYrLrYELnPApAdpKUNNZu0tDQzO0QqYvadUzk9E/edit?usp=sharing
 
