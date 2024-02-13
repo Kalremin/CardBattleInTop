@@ -13,7 +13,7 @@ public class PlayerControl : MonoBehaviour
     public static PlayerControl Instance => instance;
 
     [SerializeField]
-    InputAction moveAction, attackLeftAction, attackRightAction, interactAction, rotateAction, lockOnAction;
+    InputAction moveAction, attackLeftAction, attackRightAction, interactAction, lockOnAction;//, rotateAction;
 
 
 
@@ -63,8 +63,8 @@ public class PlayerControl : MonoBehaviour
         interactAction.performed += InteractAction_performed;
         interactAction.Enable();
 
-        rotateAction.performed += RotateAction_performed;
-        rotateAction.Enable();
+        //rotateAction.performed += RotateAction_performed;
+        //rotateAction.Enable();
 
         lockOnAction.performed += LockOnAction_performed;
         lockOnAction.Enable();
@@ -86,8 +86,8 @@ public class PlayerControl : MonoBehaviour
         interactAction.Disable();
         interactAction.performed -= InteractAction_performed;
 
-        rotateAction.Disable();
-        rotateAction.performed -= RotateAction_performed;
+        //rotateAction.Disable();
+        //rotateAction.performed -= RotateAction_performed;
 
         lockOnAction.Disable();
         lockOnAction.performed -= LockOnAction_performed;
@@ -158,9 +158,6 @@ public class PlayerControl : MonoBehaviour
 
     private void MoveAction_canceled(InputAction.CallbackContext obj)
     {
-
-        
-
         if (PlayerCharacter.Instance.IsAlive)
         {
             dir = Vector2.zero;
@@ -177,7 +174,10 @@ public class PlayerControl : MonoBehaviour
         {
 
             dir = obj.ReadValue<Vector2>();
-            PlayerCharacter.Instance.Move();
+
+            
+
+            PlayerCharacter.Instance.Move();// 이동 애니메이션
             
         }
     }
@@ -185,10 +185,27 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {        
-        if(PlayerCharacter.Instance.IsAlive && 
+        if(PlayerCharacter.Instance.IsAlive &&
             !triggerActions.IsHit)
-            playerRigid.MovePosition(transform.position +
-                (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
+        {
+            //playerRigid.MovePosition(transform.position +
+            //    (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
+
+            //playerRigid.MovePosition(transform.position + dir.x * Vector3.right + dir.y * Vector3.forward);
+
+
+
+            if (dir != Vector2.zero)
+            {
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                print(angle);
+                //PlayerCharacter.Instance.PlayerModelTransform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
+                PlayerCharacter.Instance.PlayerModelTransform.localRotation = Quaternion.Euler(0, -angle, 0);
+
+            }
+
+
+        }
 
     }
 

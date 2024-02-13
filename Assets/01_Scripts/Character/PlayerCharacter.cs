@@ -29,7 +29,10 @@ public class PlayerCharacter : BaseCharacter
     float deckResetDuration = 2f;
     float tempTime = 0;
 
+    public Transform PlayerModelTransform => playerModelTransform;
+
     public Vector3 playerModelPos => playerModelTransform.position;
+
     public int ManaPointInt => manaPointInt;
 
     protected override void Awake()
@@ -82,25 +85,25 @@ public class PlayerCharacter : BaseCharacter
         base.Update();
 
         // 모델 회전
-        if (PlayerControl.Instance.LockonCharacter !=null)
-        {
-            if (!PlayerControl.Instance.LockonCharacter.IsAlive)
-            {
-                PlayerControl.Instance.ResetTarget();
+        //if (PlayerControl.Instance.LockonCharacter !=null)
+        //{
+        //    if (!PlayerControl.Instance.LockonCharacter.IsAlive)
+        //    {
+        //        PlayerControl.Instance.ResetTarget();
 
-            }
-            else
-            {
-                playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
-                playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+        //    }
+        //    else
+        //    {
+        //        playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
+        //        playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
 
-            }
+        //    }
 
-        }
-        else
-        {
-            playerModelTransform.localEulerAngles = Vector3.zero;
-        }
+        //}
+        //else
+        //{
+        //    playerModelTransform.localEulerAngles = Vector3.zero;
+        //}
 
         // 피격시간 딜레이
         if (isHit)

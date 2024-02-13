@@ -2495,6 +2495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookTarget: {fileID: 889368640}
+  PlayerDistance: 10
 --- !u!1 &785626058
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,7 +4555,7 @@ MonoBehaviour:
   maxManaPoint: 3
   healthRegen: 0
   manaRegen: 1
-  moveSpeed: 5
+  moveSpeed: 1
   animator: {fileID: 434796064}
   playerModelTransform: {fileID: 132446682}
   noDamageTime: 3
@@ -4636,31 +4637,6 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Interact
-      m_Flags: 0
-    m_Flags: 0
-  rotateAction:
-    m_Name: Rotate
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: d1aa56da-e7b9-4914-bb46-43dcc48a035e
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 51b50373-3f9b-4918-bc31-ca230fcdaed1
-      m_Path: <Touchscreen>/delta
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Rotate
-      m_Flags: 0
-    - m_Name: 
-      m_Id: e2c49573-248e-48e1-bad6-425c736bc188
-      m_Path: <Touchscreen>/touch1/delta
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Rotate
       m_Flags: 0
     m_Flags: 0
   lockOnAction:
