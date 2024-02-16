@@ -85,21 +85,21 @@ public class PlayerCharacter : BaseCharacter
         base.Update();
 
         // ¸ðµ¨ È¸Àü
-        //if (PlayerControl.Instance.LockonCharacter !=null)
-        //{
-        //    if (!PlayerControl.Instance.LockonCharacter.IsAlive)
-        //    {
-        //        PlayerControl.Instance.ResetTarget();
+        if (PlayerControl.Instance.LockonCharacter != null)
+        {
+            if (!PlayerControl.Instance.LockonCharacter.IsAlive)
+            {
+                PlayerControl.Instance.ResetTarget();
 
-        //    }
-        //    else
-        //    {
-        //        playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
-        //        playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+            }
+            else
+            {
+                playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
+                playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
 
-        //    }
+            }
 
-        //}
+        }
         //else
         //{
         //    playerModelTransform.localEulerAngles = Vector3.zero;

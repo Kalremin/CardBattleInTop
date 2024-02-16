@@ -16,13 +16,14 @@ public class CameraLookOn : MonoBehaviour
     {
         transform.position = lookTarget.position + Vector3.up * PlayerDistance;
 
-        if (PlayerControl.Instance.LockonCharacter !=null)
-        {
-            tempLookonVec = (lookTarget.position + PlayerControl.Instance.LockonCharacter.transform.position) / 2;
-            transform.LookAt(tempLookonVec);
-        }
-        else
-            transform.LookAt(lookTarget);
+        //if (PlayerControl.Instance.LockonCharacter !=null)
+        //{
+        //    tempLookonVec = (lookTarget.position + PlayerControl.Instance.LockonCharacter.transform.position) / 2;
+        //    transform.LookAt(tempLookonVec);
+        //}
+        //else
+            //transform.LookAt(lookTarget);
+        transform.LookAt(lookTarget);
     }
 
 

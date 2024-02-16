@@ -7,6 +7,8 @@ public class EnemySpawnTrigger : MonoBehaviour
     
     public RoomEnemyControl spawn;
 
+    [SerializeField] GameObject hideRoofs;
+
     private void Awake()
     {
         spawn = GetComponentInParent<RoomEnemyControl>();
@@ -17,7 +19,8 @@ public class EnemySpawnTrigger : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
-            
+            hideRoofs.SetActive(false);
+
             spawn.Spawn();
         }
     }

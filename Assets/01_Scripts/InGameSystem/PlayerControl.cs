@@ -192,17 +192,21 @@ public class PlayerControl : MonoBehaviour
             //    (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
 
             //playerRigid.MovePosition(transform.position + dir.x * Vector3.right + dir.y * Vector3.forward);
-
-
-
-            if (dir != Vector2.zero)
+            playerRigid.MovePosition(transform.position +
+                (dir.x * Vector3.right + dir.y * Vector3.forward) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed
+                );
+            if(lockonCharacter == null)
             {
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                print(angle);
-                //PlayerCharacter.Instance.PlayerModelTransform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
-                PlayerCharacter.Instance.PlayerModelTransform.localRotation = Quaternion.Euler(0, -angle, 0);
+                if (dir != Vector2.zero)
+                {
+                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+                    PlayerCharacter.Instance.PlayerModelTransform.localRotation = Quaternion.AngleAxis(-angle, Vector3.up);
+                
+                }
 
             }
+
 
 
         }
