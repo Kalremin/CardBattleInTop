@@ -25,6 +25,7 @@ public class PlayerControl : MonoBehaviour
     Camera playerCam;
     Rigidbody playerRigid;
     EnemyCharacter lockonCharacter;
+    CharacterController playerCharacterController;
     
     bool isHoldLockOn = false;
 
@@ -40,6 +41,7 @@ public class PlayerControl : MonoBehaviour
         instance = this;
         playerRigid = GetComponent<Rigidbody>();
         playerCam = GetComponentInChildren<Camera>();
+        playerCharacterController = GetComponent<CharacterController>();
     }
 
     // Start is called before the first frame update
@@ -192,10 +194,21 @@ public class PlayerControl : MonoBehaviour
             //    (transform.forward * dir.y + transform.right * dir.x) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
 
             //playerRigid.MovePosition(transform.position + dir.x * Vector3.right + dir.y * Vector3.forward);
-            playerRigid.MovePosition(transform.position +
-                (dir.x * Vector3.right + dir.y * Vector3.forward) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed
-                );
-            if(lockonCharacter == null)
+
+            if (playerRigid != null)
+                playerRigid.MovePosition(transform.position +
+                    (dir.x * Vector3.right + dir.y * Vector3.forward) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed
+                    );
+
+            //if(playerCharacterController != null)
+            //{
+            //    //playerCharacterController.Move(
+            //    //    (dir.x * Vector3.right + dir.y * Vector3.forward) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
+            //    playerCharacterController.SimpleMove((dir.x * Vector3.right + dir.y * Vector3.forward) * Time.deltaTime * PlayerCharacter.Instance.MoveSpeed);
+            //}
+
+
+            if (lockonCharacter == null)
             {
                 if (dir != Vector2.zero)
                 {

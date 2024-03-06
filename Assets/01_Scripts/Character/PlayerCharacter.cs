@@ -87,15 +87,20 @@ public class PlayerCharacter : BaseCharacter
         // ¸ðµ¨ È¸Àü
         if (PlayerControl.Instance.LockonCharacter != null)
         {
-            if (!PlayerControl.Instance.LockonCharacter.IsAlive)
+            if (PlayerControl.Instance.LockonCharacter.IsAlive)
             {
-                PlayerControl.Instance.ResetTarget();
+                playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
+                //Vector3 tempPos = PlayerControl.Instance.LockonCharacter.gameObject.transform.position;
+                //tempPos.y = playerModelTransform.position.y;
+                //playerModelTransform.LookAt(tempPos);
 
+                playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+
+                
             }
             else
             {
-                playerModelTransform.LookAt(PlayerControl.Instance.LockonCharacter.transform);
-                playerModelTransform.localEulerAngles = new Vector3(0, playerModelTransform.localEulerAngles.y, 0);
+                PlayerControl.Instance.ResetTarget();
 
             }
 

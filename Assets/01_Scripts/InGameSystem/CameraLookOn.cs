@@ -22,7 +22,7 @@ public class CameraLookOn : MonoBehaviour
         //    transform.LookAt(tempLookonVec);
         //}
         //else
-            //transform.LookAt(lookTarget);
+        //transform.LookAt(lookTarget);
         transform.LookAt(lookTarget);
     }
 
