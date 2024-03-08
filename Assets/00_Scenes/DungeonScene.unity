@@ -5455,6 +5455,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683221285}
   m_CullTransparentMesh: 1
+--- !u!1 &1725849236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1725849238}
+  - component: {fileID: 1725849237}
+  m_Layer: 0
+  m_Name: SoundRes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1725849237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725849236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dfac46a383c7a4198b9ab852c9ffce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundClasses:
+  - prefabSound:
+      m_AssetGUID: da1d02595bfe8e34eb5318bcb38d3ea1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    description: PlayerHit
+  - prefabSound:
+      m_AssetGUID: 5aa0e738ee2a4b14dba1369ab93b1370
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    description: PlayerDead
+  - prefabSound:
+      m_AssetGUID: 24b806c83eacf1343a9b10d8aa88e6aa
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    description: EnemyHit
+  - prefabSound:
+      m_AssetGUID: a64068774ee2c514bade7a66be65120a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    description: EnemyDead
+--- !u!4 &1725849238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725849236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1734022, y: 3.5246165, z: -2.0122828}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761335285
 GameObject:
   m_ObjectHideFlags: 0
@@ -7103,3 +7172,4 @@ SceneRoots:
   - {fileID: 789504707}
   - {fileID: 2003583952}
   - {fileID: 586883573}
+  - {fileID: 1725849238}

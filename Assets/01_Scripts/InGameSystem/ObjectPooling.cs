@@ -10,6 +10,8 @@ public class ObjectPooling : MonoBehaviour
 
     Dictionary<int, Queue<GameObject>> effectPoolingDic;
 
+    Dictionary<int, Queue<GameObject>> soundPoolingDic;
+
 
     private void Awake()
     {
@@ -54,6 +56,35 @@ public class ObjectPooling : MonoBehaviour
         effectObject.transform.SetParent(transform);
 
         effectPoolingDic[effectIdx].Enqueue(effectObject);
+    }
+
+    public void InstantiateSound(int soundIdx, Transform spawnTransform)
+    {
+        GameObject tempGo;
+
+        if(!soundPoolingDic.ContainsKey(soundIdx))
+        {
+            soundPoolingDic.Add(soundIdx, new Queue<GameObject>());
+        }
+
+        if (soundPoolingDic[soundIdx].Count>0)
+        {
+            tempGo = soundPoolingDic[soundIdx].Dequeue();
+            tempGo.transform.position = spawnTransform.position;
+            tempGo.SetActive(true);
+        }
+        else
+        {
+            AssetAddressLoad.Instance.LoadSound(soundIdx, spawnTransform);
+        }
+    }
+
+    public void ReturnSound(GameObject soundObject, int soundIdx)
+    {
+        soundObject.SetActive(false);
+        soundObject.transform.SetParent(transform);
+
+        soundPoolingDic[soundIdx].Enqueue(soundObject);
     }
 
 

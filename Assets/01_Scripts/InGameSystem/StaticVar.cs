@@ -13,6 +13,7 @@ public static class StaticVar
     public static readonly string prefabGameObject = "gameobject_";
     public static readonly string prefabEffect = "effect_";
     public static readonly string prefabEnemy = "enemy_";
+    public static readonly string prefabSound = "sound_";
 
     public static readonly int UI_CardIdx = 0;
     

@@ -19,9 +19,10 @@ public class AssetAddressLoad : MonoBehaviour
     AsyncOperationHandle<GameObject> prefabEnemyHandle;
 
     AsyncOperationHandle<GameObject> prefabUIHandle;
+    AsyncOperationHandle<GameObject> prefabSoundHandle;
     AsyncOperationHandle<Material> materialHandle;
 
-    Dictionary<string, AsyncOperationHandle<GameObject>> tempDic = new Dictionary<string, AsyncOperationHandle<GameObject>>();
+    Dictionary<string, AsyncOperationHandle<GameObject>> totalHandleDic = new Dictionary<string, AsyncOperationHandle<GameObject>>();
 
     int temp;
     private void Start()
@@ -52,17 +53,17 @@ public class AssetAddressLoad : MonoBehaviour
 
     public async void LoadEffect(int objectIdx, Transform spawnTransform)
     {
-        if (!tempDic.ContainsKey(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID))
+        if (!totalHandleDic.ContainsKey(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID))
         {
-            tempDic.Add(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID,
+            totalHandleDic.Add(CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID,
                 //Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEffect + objectIdx));
                 CardsAsset.Instance.GetMagic(objectIdx).magicEffect.LoadAssetAsync<GameObject>());
-            prefabHandle = tempDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
+            prefabHandle = totalHandleDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
             await prefabHandle.Task;
         }
         else
         {
-            prefabHandle = tempDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
+            prefabHandle = totalHandleDic[CardsAsset.Instance.GetMagic(objectIdx).magicEffect.AssetGUID];
 
         }
 
@@ -80,15 +81,15 @@ public class AssetAddressLoad : MonoBehaviour
         while (enemyIdxList.Count > 0)
         {
             Enemy tempEnemy = enemyIdxList.Dequeue();
-            if (!tempDic.ContainsKey(tempEnemy.prefabRef.AssetGUID))
+            if (!totalHandleDic.ContainsKey(tempEnemy.prefabRef.AssetGUID))
             {
-                tempDic.Add(tempEnemy.prefabRef.AssetGUID, tempEnemy.prefabRef.LoadAssetAsync<GameObject>());
-                prefabEnemyHandle = tempDic[tempEnemy.prefabRef.AssetGUID];
+                totalHandleDic.Add(tempEnemy.prefabRef.AssetGUID, tempEnemy.prefabRef.LoadAssetAsync<GameObject>());
+                prefabEnemyHandle = totalHandleDic[tempEnemy.prefabRef.AssetGUID];
                 await prefabEnemyHandle.Task;
             }
             else
             {
-                prefabEnemyHandle = tempDic[tempEnemy.prefabRef.AssetGUID];
+                prefabEnemyHandle = totalHandleDic[tempEnemy.prefabRef.AssetGUID];
             }
 
             if(prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
@@ -99,21 +100,6 @@ public class AssetAddressLoad : MonoBehaviour
 
         }
 
-
-        //for(int i = 0; i < spawnTransform.Length; i++)
-        //{
-        //    temp = Random.Range(0,enemyIdxList.Count);
-        //    prefabEnemyHandle = Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEnemy + enemyIdxList[Random.Range(0,temp)]);
-        //    await prefabEnemyHandle.Task;
-
-        //    if (prefabEnemyHandle.Status == AsyncOperationStatus.Succeeded)
-        //    {
-        //        Instantiate(prefabEnemyHandle.Result, spawnTransform[i].position, Quaternion.identity).transform.SetParent(enemyParent);
-
-
-        //        Addressables.Release(prefabEnemyHandle);
-        //    }
-        //}
     }
 
     public async void LoadCardUI(int magicSpriteIdx, Transform spawnTransform)
@@ -143,15 +129,15 @@ public class AssetAddressLoad : MonoBehaviour
         for (int i = 0; i < cardUIList.Count; i++)
         {
 
-            if (!tempDic.ContainsKey(cardUIList[i].magicUI.AssetGUID))
+            if (!totalHandleDic.ContainsKey(cardUIList[i].magicUI.AssetGUID))
             {
-                tempDic.Add(cardUIList[i].magicUI.AssetGUID, cardUIList[i].magicUI.LoadAssetAsync<GameObject>());
-                prefabUIHandle = tempDic[cardUIList[i].magicUI.AssetGUID];
+                totalHandleDic.Add(cardUIList[i].magicUI.AssetGUID, cardUIList[i].magicUI.LoadAssetAsync<GameObject>());
+                prefabUIHandle = totalHandleDic[cardUIList[i].magicUI.AssetGUID];
                 await prefabUIHandle.Task;
             }
             else
             {
-                prefabUIHandle = tempDic[cardUIList[i].magicUI.AssetGUID];
+                prefabUIHandle = totalHandleDic[cardUIList[i].magicUI.AssetGUID];
 
             }
                 //prefabUIHandle = cardUIList[i].magicUI.InstantiateAsync(spawnTransform);
@@ -171,6 +157,31 @@ public class AssetAddressLoad : MonoBehaviour
         }
 
     }
+
+    public async void LoadSound(int objectIdx, Transform spawnTransform)
+    {
+        if (!totalHandleDic.ContainsKey(SoundsAsset.Instance.GetSound(objectIdx).prefabSound.AssetGUID))
+        {
+            totalHandleDic.Add(SoundsAsset.Instance.GetSound(objectIdx).prefabSound.AssetGUID,
+                //Addressables.LoadAssetAsync<GameObject>(StaticVar.resPrefab + StaticVar.prefabEffect + objectIdx));
+                SoundsAsset.Instance.GetSound(objectIdx).prefabSound.LoadAssetAsync<GameObject>());
+            prefabSoundHandle = totalHandleDic[SoundsAsset.Instance.GetSound(objectIdx).prefabSound.AssetGUID];
+            await prefabSoundHandle.Task;
+        }
+        else
+        {
+            prefabSoundHandle = totalHandleDic[SoundsAsset.Instance.GetSound(objectIdx).prefabSound.AssetGUID];
+
+        }
+
+
+        if (prefabSoundHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Instantiate(prefabSoundHandle.Result, spawnTransform.position, spawnTransform.parent.rotation).GetComponent<MagicEffectAttack>().SetIdx(objectIdx);
+
+        }
+    }
+
 
     //public async void LoadCardUIList(List<MagicCard> cardUIList, Transform spawnTransform)
     //{
@@ -241,9 +252,9 @@ public class AssetAddressLoad : MonoBehaviour
 
     public void ReleaseAll()
     {
-        foreach(string temp in tempDic.Keys)
+        foreach(string temp in totalHandleDic.Keys)
         {
-            Addressables.Release(tempDic[temp]);
+            Addressables.Release(totalHandleDic[temp]);
         }
     }
 
