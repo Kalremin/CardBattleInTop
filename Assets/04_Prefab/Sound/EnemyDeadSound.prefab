@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5933888281914735632}
   - component: {fileID: 1176395225223792437}
-  - component: {fileID: 3452302722872796176}
   m_Layer: 0
   m_Name: EnemyDeadSound
   m_TagString: Untagged
@@ -44,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -129,15 +128,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3452302722872796176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285729060048748465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecb4911510376c94dadb56fc9f594fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

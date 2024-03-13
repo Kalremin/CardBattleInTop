@@ -10,10 +10,18 @@ public class AreaEffect : MagicEffectAttack
     {
         base.ActivateEffect();
         
-        foreach(var character in characterList)
+
+        if(characterList.Count > 0 )
         {
-            character.Hitted(effectNum / Time.deltaTime);
-            
+
+            foreach(var character in characterList)
+            {
+                //character.Hitted(effectNum / Time.deltaTime);
+                character.Hitted(effectNum);
+                Debug.Log(character.name + "/ " + effectNum + "/ " + character.HealthPoint);
+            }
+
+            characterList.Clear();
         }
 
 
@@ -23,7 +31,7 @@ public class AreaEffect : MagicEffectAttack
     {
         if (other.TryGetComponent<BaseCharacter>(out BaseCharacter character))
         {
-            if (character.IsAlive)
+            if (character.IsAlive && !characterList.Contains(character))
             {
                 characterList.Add(character);
             }

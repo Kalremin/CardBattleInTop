@@ -165,11 +165,15 @@ public class PlayerCharacter : BaseCharacter
         isHit = true;
         healthPoint -= damage;
         if (healthPoint > 0)
+        {
+            PlaySoundHit();
             animator.SetTrigger("Hit");
-        else if(nowState != PlayerState.Die)
+        }
+        else if (nowState != PlayerState.Die)
         {
             nowState = PlayerState.Die;
             isAlive = false;
+            PlaySoundDead();
             animator.SetTrigger("Die");
         }
 

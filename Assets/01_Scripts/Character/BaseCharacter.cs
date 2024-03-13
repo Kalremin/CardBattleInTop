@@ -20,6 +20,8 @@ public abstract class BaseCharacter : MonoBehaviour
     protected delegate void UpdateMethod();
     protected UpdateMethod updateMethod;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected AudioSource hitSound;
+    [SerializeField] protected AudioSource deadSound;
 
     public bool IsAlive => isAlive;
     public float HealthPoint => healthPoint;
@@ -67,4 +69,14 @@ public abstract class BaseCharacter : MonoBehaviour
     public abstract void Hitted(float damage);
 
     public abstract void Idle();
+
+    public void PlaySoundHit()
+    {
+        hitSound.Play();
+    }
+
+    public void PlaySoundDead()
+    {
+        deadSound.Play();
+    }
 }

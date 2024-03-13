@@ -163,13 +163,15 @@ public class EnemyCharacter : BaseCharacter
         healthPoint -= damage;
         if (healthPoint < 0)
         {
-            
-            
             ChangeState(EnemyState.Die);
+            PlaySoundDead();
         }
 
         else
+        {
             animator.SetTrigger("Hit");
+            PlaySoundHit();
+        }
         
     }
 

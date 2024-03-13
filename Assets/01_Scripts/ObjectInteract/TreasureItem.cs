@@ -9,6 +9,8 @@ public class TreasureItem : ItemInDungeon
     Animator animator;
     [SerializeField]
     GameObject magicItem;
+
+    [SerializeField] AudioSource openBoxSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class TreasureItem : ItemInDungeon
             return;
         CardPlayer.Instance.AddCard(cardIdx);
         magicItem.SetActive(false);
+        eventItem.Invoke();
         used = true;
     }
 
@@ -38,6 +41,7 @@ public class TreasureItem : ItemInDungeon
     {
         if(other.TryGetComponent(out PlayerCharacter character))
         {
+            openBoxSound.Play();
             animator.SetTrigger("open");
             
         }
