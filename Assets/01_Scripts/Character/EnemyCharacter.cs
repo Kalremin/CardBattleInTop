@@ -164,6 +164,7 @@ public class EnemyCharacter : BaseCharacter
         if (healthPoint < 0)
         {
             ChangeState(EnemyState.Die);
+            lockOnGround.SetActive(false);
             PlaySoundDead();
         }
 
